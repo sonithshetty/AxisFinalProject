@@ -1,0 +1,10 @@
+package com.axis.model;
+
+public class AccountDetails {
+	
+	private int custmorId;
+	private Long accountNo;
+	private char accountFlag;
+	
+	
+}
