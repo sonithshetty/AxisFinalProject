@@ -1,28 +1,38 @@
 package com.axis.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TBL_CUST_ACC_DETAIL")
 public class AccountDetails {
 	
 	@Id
-	private Long custmorId;
+	@Column(name = "Account_number")
 	private Long accountNo;
+	
+	@Column(name = "Cust_ID")
+	private Long customerId;
+	
+	@Column(name = "ACCT_CL_FLG")
 	private char accountFlag;
-	public AccountDetails(Long custmorId, Long accountNo, char accountFlag) {
+	
+	public AccountDetails() {
 		super();
-		this.custmorId = custmorId;
+	}
+	public AccountDetails( Long accountNo,Long customerId, char accountFlag) {
+		super();
+		this.customerId = customerId;
 		this.accountNo = accountNo;
 		this.accountFlag = accountFlag;
 	}
-	public AccountDetails() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Long getCustomerId() {
+		return customerId;
 	}
-	public Long getCustmorId() {
-		return custmorId;
-	}
-	public void setCustmorId(Long custmorId) {
-		this.custmorId = custmorId;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 	public Long getAccountNo() {
 		return accountNo;
@@ -35,6 +45,11 @@ public class AccountDetails {
 	}
 	public void setAccountFlag(char accountFlag) {
 		this.accountFlag = accountFlag;
+	}
+	@Override
+	public String toString() {
+		return "AccountDetails [customerId=" + customerId + ", accountNo=" + accountNo + ", accountFlag=" + accountFlag
+				+ "]";
 	}
 	
 }

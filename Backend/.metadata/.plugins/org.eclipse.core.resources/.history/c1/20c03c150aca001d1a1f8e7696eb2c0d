@@ -1,5 +1,0 @@
-package com.axis.repository;
-
-public interface AccountDetailsRepository {
-
-}
