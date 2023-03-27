@@ -7,7 +7,7 @@ import com.axis.model.AccountDetails;
 public interface AccountDetailsService{
 	AccountDetails addDetails(AccountDetails accountDetails);
 	List<AccountDetails> getAllDetails();
-	AccountDetails getDetailsByAccountID(String accountNo);
-	AccountDetails updateDetailsByAccountID(String accountNo, AccountDetails accountDetails);
-	String deleteDetailsByAccountID(String accountNo);
+	AccountDetails getDetailsByAccountNo(String accountNo);   // inquire function
+	AccountDetails updateDetailsByAccountNo(String accountNo, AccountDetails accountDetails); //modify function
+	String deleteDetailsByAccountNo(String accountNo); //delete function
 }

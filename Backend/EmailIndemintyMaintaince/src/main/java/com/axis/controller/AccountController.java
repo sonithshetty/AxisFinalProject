@@ -28,29 +28,29 @@ public class AccountController {
 	@Autowired
 	AccountDetailsRepository accountRepository;
 	
-	@PostMapping("/accounts")
+	@PostMapping("/accounts")	//maker cannot access this
 	ResponseEntity<AccountDetails> addDetails(@RequestBody AccountDetails accountDetails){
 		return new ResponseEntity<AccountDetails>(accountDetailsService.addDetails(accountDetails), HttpStatus.OK);
 	}
 	
-	@GetMapping("/accounts")
+	@GetMapping("/accounts")	//maker can access this
 	ResponseEntity<List<AccountDetails>> getAllDetails(){
 		return new ResponseEntity<List<AccountDetails>>(accountDetailsService.getAllDetails(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/accounts/{accountNo}")
+	@GetMapping("/accounts/{accountNo}") //maker can access this
 	ResponseEntity<AccountDetails> getDetailsByAccountID(@PathVariable String accountNo){
-		return new ResponseEntity<AccountDetails>(accountDetailsService.getDetailsByAccountID(accountNo), HttpStatus.OK);
+		return new ResponseEntity<AccountDetails>(accountDetailsService.getDetailsByAccountNo(accountNo), HttpStatus.OK);
 	}
 	
-	@PutMapping("/accounts/{accountNo}")
+	@PutMapping("/accounts/{accountNo}")	//maker cannot access this, but checker can
 	ResponseEntity<AccountDetails> updateDetailsByAccountID(@PathVariable String accountNo, @RequestBody AccountDetails accountDetails){
-		return new ResponseEntity<AccountDetails>(accountDetailsService.updateDetailsByAccountID(accountNo, accountDetails), HttpStatus.OK);
+		return new ResponseEntity<AccountDetails>(accountDetailsService.updateDetailsByAccountNo(accountNo, accountDetails), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/accounts/{accountNo}")
+	@DeleteMapping("/accounts/{accountNo}")	//maker cannot access this
 	ResponseEntity<String> deleteDetailsByAccountID(@PathVariable String accountNo){
-		return new ResponseEntity<String>(accountDetailsService.deleteDetailsByAccountID(accountNo), HttpStatus.OK);
+		return new ResponseEntity<String>(accountDetailsService.deleteDetailsByAccountNo(accountNo), HttpStatus.OK);
 	}
 	
 	

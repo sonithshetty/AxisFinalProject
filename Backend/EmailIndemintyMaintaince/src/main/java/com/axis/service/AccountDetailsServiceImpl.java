@@ -18,49 +18,41 @@ public class AccountDetailsServiceImpl implements AccountDetailsService{
 	
 	@Override
 	public AccountDetails addDetails(AccountDetails accountDetails) {
-		// TODO Auto-generated method stub
 		return accountRepository.save(accountDetails);
 	}
 
 	@Override
 	public List<AccountDetails> getAllDetails() {
-		// TODO Auto-generated method stub
 		return accountRepository.findAll();
 	}
 
 	@Override
-	public AccountDetails getDetailsByAccountID(String accountNo) {
-		// TODO Auto-generated method stub
-		Optional<AccountDetails> acc = accountRepository.findById(accountNo);
-		
+	public AccountDetails getDetailsByAccountNo(String accountNo) {
+		Optional<AccountDetails> acc = accountRepository.findById(accountNo);	
 		if(acc.isPresent())
 			return acc.get();
 		else
-			throw new IdNotFoundException("No such accountNo is present to get the value");
+			throw new IdNotFoundException("No customer with the given account number found");
 	}
 
 	@Override
-	public AccountDetails updateDetailsByAccountID(String accountNo, AccountDetails accountDetails) {
-		// TODO Auto-generated method stub
-		Optional<AccountDetails> acc = accountRepository.findById(accountNo);
-		
+	public AccountDetails updateDetailsByAccountNo(String accountNo, AccountDetails accountDetails) {
+		Optional<AccountDetails> acc = accountRepository.findById(accountNo);	
 		if(acc.isPresent())
 			return accountRepository.save(accountDetails);
 		else
-			throw new IdNotFoundException("No such accountNo is present to update the value");
+			throw new IdNotFoundException("No customer with the given account number found");
 	
 	}
 
 	@Override
-	public String deleteDetailsByAccountID(String accountNo) {
-		// TODO Auto-generated method stub
+	public String deleteDetailsByAccountNo(String accountNo) {
 		Optional<AccountDetails> acc = accountRepository.findById(accountNo);
-		
 		if(acc.isPresent()) {
 			accountRepository.deleteById(accountNo);
 			return "Account deleted Successfully";
 		}else
-			throw new IdNotFoundException("No such accountNo is present to delete the value");
+			throw new IdNotFoundException("No customer with the given account number found");
 	
 	}
 

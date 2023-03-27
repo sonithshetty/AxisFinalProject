@@ -2,12 +2,9 @@ package com.axis.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,10 +15,10 @@ public class IndemintyDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Account_number", referencedColumnName = "accountNo")
-	@Column(name = "Account_number", columnDefinition = "VARCHAR(16) NOT NULL")
-	private String accountNo;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "accountNo", referencedColumnName = "Account_number")
+//	private AccountDetails accountNo;
+
 	
 //	private Long accountNo;
 	
@@ -30,6 +27,8 @@ public class IndemintyDetails {
 	private String emailId;
 	private Long faxNumber;
 	private Long referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
+	private String accountNo;
+	
 //	private Boolean digitalSignature;
 //	private Boolean delete;
 //	private Boolean modify;
@@ -39,16 +38,23 @@ public class IndemintyDetails {
 		super();
 		
 	}
-	public IndemintyDetails(String name, String emailId, Long faxNumber, Long referenceNumber) {
+	public IndemintyDetails(String name, String emailId, Long faxNumber, Long referenceNumber,String accountNo) {
 		super();
 		this.name = name;
 		this.emailId = emailId;
 		this.faxNumber = faxNumber;
 		this.referenceNumber = referenceNumber;
+		this.accountNo = accountNo;
 //		this.digitalSignature = digitalSignature;
 //		this.delete = delete;
 //		this.modify = modify;
 //		this.verify = verify;
+	}
+	public String getaccountNo() {
+		return accountNo;
+	}
+	public void setaccountNo(String accountNo) {
+		this.accountNo = accountNo;
 	}
 	public String getName() {
 		return name;
