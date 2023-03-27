@@ -43,7 +43,7 @@ public class IndemnController {
 		return new ResponseEntity<IndemintyDetails>(indemnService.getDetailsById(id), HttpStatus.OK);
 	}
 	
-	@PutMapping("/indemn/{id}}")
+	@PutMapping("/indemn/{id}")
 	ResponseEntity<IndemintyDetails> updateDetailsByAccountID(@PathVariable int id, @RequestBody IndemintyDetails indemnDetails){
 		return new ResponseEntity<IndemintyDetails>(indemnService.updateDetailsById(id, indemnDetails), HttpStatus.OK);
 	}
