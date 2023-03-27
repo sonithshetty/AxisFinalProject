@@ -39,17 +39,17 @@ public class AccountController {
 	}
 	
 	@GetMapping("/accounts/{accountNo}")
-	ResponseEntity<AccountDetails> getDetailsByAccountID(@PathVariable Long accountNo){
+	ResponseEntity<AccountDetails> getDetailsByAccountID(@PathVariable String accountNo){
 		return new ResponseEntity<AccountDetails>(accountDetailsService.getDetailsByAccountID(accountNo), HttpStatus.OK);
 	}
 	
 	@PutMapping("/accounts/{accountNo}")
-	ResponseEntity<AccountDetails> updateDetailsByAccountID(@PathVariable Long accountNo, @RequestBody AccountDetails accountDetails){
+	ResponseEntity<AccountDetails> updateDetailsByAccountID(@PathVariable String accountNo, @RequestBody AccountDetails accountDetails){
 		return new ResponseEntity<AccountDetails>(accountDetailsService.updateDetailsByAccountID(accountNo, accountDetails), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/students/{accountNo}")
-	ResponseEntity<String> deleteDetailsByAccountID(@PathVariable Long accountNo){
+	@DeleteMapping("/accounts/{accountNo}")
+	ResponseEntity<String> deleteDetailsByAccountID(@PathVariable String accountNo){
 		return new ResponseEntity<String>(accountDetailsService.deleteDetailsByAccountID(accountNo), HttpStatus.OK);
 	}
 	

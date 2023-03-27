@@ -10,11 +10,11 @@ import javax.persistence.Table;
 public class AccountDetails {
 	
 	@Id
-	@Column(name = "Account_number")
-	private Long accountNo;
-	
-	@Column(name = "Cust_ID")
-	private Long customerId;
+	@Column(name = "Account_number", columnDefinition = "VARCHAR(16) NOT NULL")
+	private String accountNo;
+
+	@Column(name = "Cust_ID",columnDefinition = "VARCHAR(9) NOT NULL")
+	private String customerId;
 	
 	@Column(name = "ACCT_CL_FLG")
 	private char accountFlag;
@@ -22,22 +22,22 @@ public class AccountDetails {
 	public AccountDetails() {
 		super();
 	}
-	public AccountDetails( Long accountNo,Long customerId, char accountFlag) {
+	public AccountDetails( String accountNo,String customerId, char accountFlag) {
 		super();
 		this.customerId = customerId;
 		this.accountNo = accountNo;
 		this.accountFlag = accountFlag;
 	}
-	public Long getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(Long customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-	public Long getAccountNo() {
+	public String getAccountNo() {
 		return accountNo;
 	}
-	public void setAccountNo(Long accountNo) {
+	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
 	public char getAccountFlag() {

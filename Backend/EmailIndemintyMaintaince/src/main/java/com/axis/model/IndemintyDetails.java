@@ -14,13 +14,14 @@ import javax.persistence.Table;
 @Table(name = "INDEMNITY_DETAILS")
 public class IndemintyDetails {
 	
-	@Id
+	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Account_number", referencedColumnName = "Account_number")
-	private AccountDetails accountDetails;
+	@JoinColumn(name = "Account_number", referencedColumnName = "accountNo")
+	@Column(name = "Account_number", columnDefinition = "VARCHAR(16) NOT NULL")
+	private String accountNo;
 	
 //	private Long accountNo;
 	

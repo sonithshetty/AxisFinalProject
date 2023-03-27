@@ -29,7 +29,7 @@ public class AccountDetailsServiceImpl implements AccountDetailsService{
 	}
 
 	@Override
-	public AccountDetails getDetailsByAccountID(Long accountNo) {
+	public AccountDetails getDetailsByAccountID(String accountNo) {
 		// TODO Auto-generated method stub
 		Optional<AccountDetails> acc = accountRepository.findById(accountNo);
 		
@@ -40,7 +40,7 @@ public class AccountDetailsServiceImpl implements AccountDetailsService{
 	}
 
 	@Override
-	public AccountDetails updateDetailsByAccountID(Long accountNo, AccountDetails accountDetails) {
+	public AccountDetails updateDetailsByAccountID(String accountNo, AccountDetails accountDetails) {
 		// TODO Auto-generated method stub
 		Optional<AccountDetails> acc = accountRepository.findById(accountNo);
 		
@@ -52,7 +52,7 @@ public class AccountDetailsServiceImpl implements AccountDetailsService{
 	}
 
 	@Override
-	public String deleteDetailsByAccountID(Long accountNo) {
+	public String deleteDetailsByAccountID(String accountNo) {
 		// TODO Auto-generated method stub
 		Optional<AccountDetails> acc = accountRepository.findById(accountNo);
 		
