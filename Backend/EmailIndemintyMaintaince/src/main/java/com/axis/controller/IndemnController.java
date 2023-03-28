@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.axis.model.IndemintyDetails;
+import com.axis.dto.IndemnityDetailsDTO;
+import com.axis.model.IndemnityDetails;
 import com.axis.repository.IndemnityDetailsRepository;
 import com.axis.service.IndemnityDetailsService;
 
@@ -28,29 +29,50 @@ public class IndemnController {
 	@Autowired
 	IndemnityDetailsRepository indemnRepository;
 	
+	
+//	ResponseEntity<IndemnityDetails> addDetails(@RequestBody IndemnityDetails indemnDetails){
+//		return new ResponseEntity<IndemnityDetails>(indemnService.addDetails(indemnDetails), HttpStatus.OK);
+//	}
 	@PostMapping("/indemn")
-	ResponseEntity<IndemintyDetails> addDetails(@RequestBody IndemintyDetails indemnDetails){
-		return new ResponseEntity<IndemintyDetails>(indemnService.addDetails(indemnDetails), HttpStatus.OK);
-	}
+	ResponseEntity<IndemnityDetailsDTO> addDetails(@RequestBody IndemnityDetailsDTO indemnityDetailsDTO) {
+        IndemnityDetailsDTO savedIndemnityDetailsDTO = indemnService.addDetails(indemnityDetailsDTO);
+        return ResponseEntity.ok(savedIndemnityDetailsDTO);
+    }
 	
+//	ResponseEntity<List<IndemnityDetails>> getAllDetails(){
+//		return new ResponseEntity<List<IndemnityDetails>>(indemnService.getAllDetails(), HttpStatus.OK);
+//	}
 	@GetMapping("/indemn")
-	ResponseEntity<List<IndemintyDetails>> getAllDetails(){
-		return new ResponseEntity<List<IndemintyDetails>>(indemnService.getAllDetails(), HttpStatus.OK);
-	}
+	public ResponseEntity<List<IndemnityDetailsDTO>> getAllDetails() {
+        List<IndemnityDetailsDTO> indemnityDetailsDTOList = indemnService.getAllDetails();
+        return ResponseEntity.ok(indemnityDetailsDTOList);
+    }
 	
+//	ResponseEntity<IndemnityDetails> getDetailsById(@PathVariable int id){
+//		return new ResponseEntity<IndemnityDetails>(indemnService.getDetailsById(id), HttpStatus.OK);
+//	}
 	@GetMapping("/indemn/{id}")
-	ResponseEntity<IndemintyDetails> getDetailsById(@PathVariable int id){
-		return new ResponseEntity<IndemintyDetails>(indemnService.getDetailsById(id), HttpStatus.OK);
-	}
+	public ResponseEntity<IndemnityDetailsDTO> getDetailsById(@PathVariable int id) {
+        IndemnityDetailsDTO indemnityDetailsDTO = indemnService.getDetailsById(id);
+        return ResponseEntity.ok(indemnityDetailsDTO);
+    }
 	
-	@PutMapping("/indemn/{id}}")
-	ResponseEntity<IndemintyDetails> updateDetailsByAccountID(@PathVariable int id, @RequestBody IndemintyDetails indemnDetails){
-		return new ResponseEntity<IndemintyDetails>(indemnService.updateDetailsById(id, indemnDetails), HttpStatus.OK);
-	}
+//	ResponseEntity<IndemnityDetails> updateDetailsByAccountID(@PathVariable int id, @RequestBody IndemnityDetails indemnDetails){
+//		return new ResponseEntity<IndemnityDetails>(indemnService.updateDetailsById(id, indemnDetails), HttpStatus.OK);
+//	}
+	@PutMapping("/indemn/{id}")
+	public ResponseEntity<IndemnityDetailsDTO> updateDetailsById(@PathVariable("id") int id, @RequestBody IndemnityDetailsDTO indemnityDetailsDTO) {
+        IndemnityDetailsDTO updatedIndemnityDetailsDTO = indemnService.updateDetailsById(id, indemnityDetailsDTO);
+        return ResponseEntity.ok(updatedIndemnityDetailsDTO);
+    }
 	
+//	ResponseEntity<String> deleteDetailsByAccountID(@PathVariable int id){
+//		return new ResponseEntity<String>(indemnService.deleteDetailsById(id), HttpStatus.OK);
+//	}
 	@DeleteMapping("/indemn/{id}")
-	ResponseEntity<String> deleteDetailsByAccountID(@PathVariable int id){
-		return new ResponseEntity<String>(indemnService.deleteDetailsById(id), HttpStatus.OK);
-	}
+	public ResponseEntity<String> deleteDetailsById(@PathVariable("id") int id) {
+        String message = indemnService.deleteDetailsById(id);
+        return ResponseEntity.ok(message);
+    }
 	
 }
