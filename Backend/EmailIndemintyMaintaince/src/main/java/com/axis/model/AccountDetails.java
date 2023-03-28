@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TBL_CUST_ACC_DETAIL")
+@Table(name = "TBL_CUST_ACC_DETAIL", uniqueConstraints={@UniqueConstraint(columnNames={"Cust_ID"})})
 public class AccountDetails {
 	
 	@Id
