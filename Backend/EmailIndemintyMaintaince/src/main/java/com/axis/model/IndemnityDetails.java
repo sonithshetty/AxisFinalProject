@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "INDEMNITY_DETAILS")
@@ -23,8 +24,12 @@ public class IndemnityDetails {
 	@Column(name = "AUTHORISED_SIGNATORY")
 	private String name;
 	private String emailId;
+	
+	@Column(name = "fax_number", nullable = true, unique = true)
 	private Long faxNumber;
-	private Long referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
+	
+	@Column(name = "reference_number", nullable = true, unique = true)
+	private String referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
 	private String accountNo;
 	
 //	private Boolean digitalSignature;
@@ -36,7 +41,7 @@ public class IndemnityDetails {
 		super();
 		
 	}
-	public IndemnityDetails(String name, String emailId, Long faxNumber, Long referenceNumber,String accountNo) {
+	public IndemnityDetails(String name, String emailId, Long faxNumber, String referenceNumber,String accountNo) {
 		super();
 		this.name = name;
 		this.emailId = emailId;
@@ -80,10 +85,10 @@ public class IndemnityDetails {
 	public void setFaxNumber(Long faxNumber) {
 		this.faxNumber = faxNumber;
 	}
-	public Long getReferenceNumber() {
+	public String getReferenceNumber() {
 		return referenceNumber;
 	}
-	public void setReferenceNumber(Long referenceNumber) {
+	public void setReferenceNumber(String referenceNumber) {
 		this.referenceNumber = referenceNumber;
 	}
 //	public Boolean getDigitalSignature() {
@@ -110,4 +115,11 @@ public class IndemnityDetails {
 //	public void setVerify(Boolean verify) {
 //		this.verify = verify;
 //	}
+	@Override
+	public String toString() {
+		return "IndemnityDetails [id=" + id + ", name=" + name + ", emailId=" + emailId + ", faxNumber=" + faxNumber
+				+ ", referenceNumber=" + referenceNumber + ", accountNo=" + accountNo + "]";
+	}
+	
+	
 }

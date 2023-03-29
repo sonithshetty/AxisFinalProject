@@ -15,6 +15,7 @@ public interface IndemnityDetailsService {
     IndemnityDetailsDTO addDetails(IndemnityDetailsDTO indemnityDetailsDTO);
     List<IndemnityDetailsDTO> getAllDetails();
     IndemnityDetailsDTO getDetailsById(int id);
+    List<IndemnityDetailsDTO> getDetailsByAccountNo(String accountNo);
     IndemnityDetailsDTO updateDetailsById(int id, IndemnityDetailsDTO indemnityDetailsDTO);
     String deleteDetailsById(int id);
 }

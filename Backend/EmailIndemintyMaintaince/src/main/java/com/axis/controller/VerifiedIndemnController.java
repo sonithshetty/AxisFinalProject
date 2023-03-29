@@ -32,7 +32,7 @@ public class VerifiedIndemnController {
 	public ResponseEntity<VerifiedIndemnity> getDetailsByAccountId(@RequestBody VerifiedIndemnity verifiedDetails) {
 		String accountNo = verifiedDetails.getAccountNo();
 		if (accountNo != null) {
-			return new ResponseEntity<VerifiedIndemnity>(verifiedService.getDetailsByAccountId(accountNo), HttpStatus.OK);
+			return new ResponseEntity<VerifiedIndemnity>(verifiedService.getDetailsByAccountNo(accountNo), HttpStatus.OK);
 		} else {
 			return ResponseEntity.notFound().build();
 		}

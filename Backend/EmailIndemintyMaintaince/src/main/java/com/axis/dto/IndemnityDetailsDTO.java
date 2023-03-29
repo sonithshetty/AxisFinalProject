@@ -8,7 +8,7 @@ public class IndemnityDetailsDTO {
 	private String name;
 	private String emailId;
 	private Long faxNumber;
-	private Long referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
+	private String referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
 	private String accountNo;
 	
 	public IndemnityDetailsDTO() {
@@ -23,7 +23,7 @@ public class IndemnityDetailsDTO {
 		this.accountNo = indemnityDetails.getAccountNo();
 	}
 
-	public IndemnityDetailsDTO(int id, String name, String emailId, Long faxNumber, Long referenceNumber,
+	public IndemnityDetailsDTO(int id, String name, String emailId, Long faxNumber, String referenceNumber,
 			String accountNo) {
 		super();
 		this.id = id;
@@ -57,10 +57,10 @@ public class IndemnityDetailsDTO {
 	public void setFaxNumber(Long faxNumber) {
 		this.faxNumber = faxNumber;
 	}
-	public Long getReferenceNumber() {
+	public String getReferenceNumber() {
 		return referenceNumber;
 	}
-	public void setReferenceNumber(Long referenceNumber) {
+	public void setReferenceNumber(String referenceNumber) {
 		this.referenceNumber = referenceNumber;
 	}
 	public String getAccountNo() {

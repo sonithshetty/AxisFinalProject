@@ -1,8 +1,10 @@
 package com.axis.service;
 
+import java.util.List;
+
 import com.axis.model.VerifiedIndemnity;
 
 public interface VerifiedIndemnityService {
-	VerifiedIndemnity addDetails(VerifiedIndemnity verifiedDetails);
-	VerifiedIndemnity getDetailsByAccountId(String accountNo);
+	VerifiedIndemnity addVerifiedDetails(VerifiedIndemnity verifiedDetails);	//send multiple verified indemnities after verification in one click
+//	List<VerifiedIndemnity> getDetailsByAccountNo(String accountNo);		//get details of all indemnities of particular account
 }

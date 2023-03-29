@@ -51,11 +51,27 @@ public class IndemnController {
 //	ResponseEntity<IndemnityDetails> getDetailsById(@PathVariable int id){
 //		return new ResponseEntity<IndemnityDetails>(indemnService.getDetailsById(id), HttpStatus.OK);
 //	}
-	@GetMapping("/indemn/{id}")
-	public ResponseEntity<IndemnityDetailsDTO> getDetailsById(@PathVariable int id) {
-        IndemnityDetailsDTO indemnityDetailsDTO = indemnService.getDetailsById(id);
+//	@GetMapping("/indemn/{id}")
+//	public ResponseEntity<IndemnityDetailsDTO> getDetailsById(@PathVariable int id) {
+//        IndemnityDetailsDTO indemnityDetailsDTO = indemnService.getDetailsById(id);
+//        return ResponseEntity.ok(indemnityDetailsDTO);
+//    }
+	
+	@GetMapping("/indemn/{accountNo}")
+	public ResponseEntity<List<IndemnityDetailsDTO>> getDetailsByAccountNo(@PathVariable String accountNo) {
+        List<IndemnityDetailsDTO> indemnityDetailsDTO = indemnService.getDetailsByAccountNo(accountNo);
         return ResponseEntity.ok(indemnityDetailsDTO);
     }
+	
+//	@GetMapping("/indemn/{accountNo}")
+//    public ResponseEntity<List<IndemnityDetailsDTO>> getDetailsByAccountNo(@PathVariable String accountNo) {
+//        String accountno = indemnDetailsDTO.getAccountNo();
+//        if (accountno != null) {
+//            return new ResponseEntity<List<IndemnityDetailsDTO>>(indemnService.getDetailsByAccountNo(accountNo), HttpStatus.OK);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 	
 //	ResponseEntity<IndemnityDetails> updateDetailsByAccountID(@PathVariable int id, @RequestBody IndemnityDetails indemnDetails){
 //		return new ResponseEntity<IndemnityDetails>(indemnService.updateDetailsById(id, indemnDetails), HttpStatus.OK);
