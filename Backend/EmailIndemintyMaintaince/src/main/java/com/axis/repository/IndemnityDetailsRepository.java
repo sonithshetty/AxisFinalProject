@@ -12,5 +12,6 @@ public interface IndemnityDetailsRepository extends JpaRepository<IndemnityDetai
 
 //	@Quer("SELECT a FROM indemnity_details a WHERE a.accountNo = :accountNo")
 	List<IndemnityDetails> findByAccountNo(String accountNo);
-
+	
+	List<IndemnityDetails> findByVerifyIsNot(Boolean verify);
 }

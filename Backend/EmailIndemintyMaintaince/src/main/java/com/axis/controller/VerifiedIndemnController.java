@@ -25,16 +25,16 @@ public class VerifiedIndemnController {
 	
 	@PostMapping("/verified")
 	ResponseEntity<VerifiedIndemnity> addDetails(@RequestBody VerifiedIndemnity verifiedDetails){
-		return new ResponseEntity<VerifiedIndemnity>(verifiedService.addDetails(verifiedDetails), HttpStatus.OK);
+		return new ResponseEntity<VerifiedIndemnity>(verifiedService.addVerifiedDetails(verifiedDetails), HttpStatus.OK);
 	}
 	
-	@GetMapping("/verified/accountNo")
-	public ResponseEntity<VerifiedIndemnity> getDetailsByAccountId(@RequestBody VerifiedIndemnity verifiedDetails) {
-		String accountNo = verifiedDetails.getAccountNo();
-		if (accountNo != null) {
-			return new ResponseEntity<VerifiedIndemnity>(verifiedService.getDetailsByAccountNo(accountNo), HttpStatus.OK);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
+//	@GetMapping("/verified/accountNo")
+//	public ResponseEntity<VerifiedIndemnity> getDetailsByAccountId(@RequestBody VerifiedIndemnity verifiedDetails) {
+//		String accountNo = verifiedDetails.getAccountNo();
+//		if (accountNo != null) {
+//			return new ResponseEntity<VerifiedIndemnity>(verifiedService.getDetailsByAccountNo(accountNo), HttpStatus.OK);
+//		} else {
+//			return ResponseEntity.notFound().build();
+//		}
+//	}
 }

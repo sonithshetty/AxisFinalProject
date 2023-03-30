@@ -27,6 +27,8 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
         indemnityDetails.setEmailId(indemnityDetailsDTO.getEmailId());
         indemnityDetails.setFaxNumber(indemnityDetailsDTO.getFaxNumber());
         indemnityDetails.setReferenceNumber(indemnityDetailsDTO.getReferenceNumber());
+        indemnityDetails.setVerify(false);
+        
 
         indemnityDetails = indemnRepository.save(indemnityDetails);
 
@@ -37,7 +39,8 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
         resultDto.setEmailId(indemnityDetails.getEmailId());
         resultDto.setFaxNumber(indemnityDetails.getFaxNumber());
         resultDto.setReferenceNumber(indemnityDetails.getReferenceNumber());
-
+        resultDto.setVerify(indemnityDetails.getVerify());
+        
         return resultDto;
 	}
 
@@ -54,6 +57,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
             indemnityDetailsDTO.setEmailId(indemnityDetails.getEmailId());
             indemnityDetailsDTO.setFaxNumber(indemnityDetails.getFaxNumber());
             indemnityDetailsDTO.setReferenceNumber(indemnityDetails.getReferenceNumber());
+            indemnityDetailsDTO.setVerify(indemnityDetails.getVerify());
             indemnityDetailsDTOList.add(indemnityDetailsDTO);
         }
         return indemnityDetailsDTOList;
@@ -67,27 +71,26 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
             IndemnityDetails indemnityDetails = optionalIndemnityDetails.get();
             return new IndemnityDetailsDTO(indemnityDetails.getId(), indemnityDetails.getName(),
                     indemnityDetails.getEmailId(), indemnityDetails.getFaxNumber(),
-                    indemnityDetails.getReferenceNumber(), indemnityDetails.getAccountNo());
+                    indemnityDetails.getReferenceNumber(), indemnityDetails.getAccountNo(), indemnityDetails.getVerify());
         } else {
             throw new IdNotFoundException("No such id is present to get the value");
         }	}
 
 	@Override
-	public IndemnityDetailsDTO updateDetailsById(int id, IndemnityDetailsDTO indemnityDetailsDTO) {
+	public IndemnityDetailsDTO updateDetailsByAccountNo(int id, IndemnityDetailsDTO indemnityDetailsDTO) {
 		// TODO Auto-generated method stub
 		Optional<IndemnityDetails> optionalIndemnityDetails = indemnRepository.findById(id);
         if (optionalIndemnityDetails.isPresent()) {
             IndemnityDetails indemnityDetails = optionalIndemnityDetails.get();
-            indemnityDetails.setAccountNo(indemnityDetailsDTO.getAccountNo());
             indemnityDetails.setName(indemnityDetailsDTO.getName());
             indemnityDetails.setEmailId(indemnityDetailsDTO.getEmailId());
             indemnityDetails.setFaxNumber(indemnityDetailsDTO.getFaxNumber());
             indemnityDetails.setReferenceNumber(indemnityDetailsDTO.getReferenceNumber());
-            indemnityDetails.setId(id);
+            indemnityDetails.setVerify(indemnityDetailsDTO.getVerify());
             indemnityDetails = indemnRepository.save(indemnityDetails);
             return new IndemnityDetailsDTO(indemnityDetails);
         } else {
-            throw new IdNotFoundException("No such id is present to update the value");
+            throw new IdNotFoundException("No such account no is present to update the value");
         }
 	}
 
@@ -106,24 +109,6 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	@Override
 	public List<IndemnityDetailsDTO> getDetailsByAccountNo(String accountNo) {
 		// TODO Auto-generated method stub
-//		 Optional<IndemnityDetails> optionalIndemnityDetails = indemnRepository.findByAccountNo(accountNo);
-//	        if (optionalIndemnityDetails.isPresent()) {
-//	            IndemnityDetails indemnityDetails = optionalIndemnityDetails.get();
-//	            return new IndemnityDetailsDTO(indemnityDetails.getId(), indemnityDetails.getName(),
-//	                    indemnityDetails.getEmailId(), indemnityDetails.getFaxNumber(),
-//	                    indemnityDetails.getReferenceNumber(), indemnityDetails.getAccountNo());
-//	        } else {
-//	            throw new IdNotFoundException("No such id is present to get the accountNo");
-//	        }
-	        
-	       
-//		List<IndemnityDetails> indemnityDetails = indemnRepository.findByAccountNo(accountNo);
-//	            if (indemnityDetails == null) {
-//	                throw new IdNotFoundException("No such id is present to get the accountNo");
-//	            }
-//	            return new List<IndemnityDetailsDTO(indemnityDetails.getId(), indemnityDetails.getName(),
-//	                    indemnityDetails.getEmailId(), indemnityDetails.getFaxNumber(),
-//	                    indemnityDetails.getReferenceNumber(), indemnityDetails.getAccountNo());
 	            
 	            List<IndemnityDetails> indemnityDetailsList = indemnRepository.findByAccountNo(accountNo);
 	            List<IndemnityDetailsDTO> indemnityDetailsDTOList = new ArrayList<>();
@@ -140,8 +125,40 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	            return indemnityDetailsDTOList;
 	        
 	}
-	
-	
+
+	@Override
+	public List<IndemnityDetails> getDetailsByIsVerified() {
+		// TODO Auto-generated method stub
+//		List<IndemnityDetailsDTO> indemnityDetailsDTOList = new ArrayList<>();
+//		if(indemnityDetails.getVerify() == false) {
+//			List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
+//			
+//            for (IndemnityDetails indemnityDetail : indemnityDetailsList) {
+//                IndemnityDetailsDTO indemnityDetailsDTO = new IndemnityDetailsDTO();
+//                indemnityDetailsDTO.setId(indemnityDetail.getId());
+//                indemnityDetailsDTO.setAccountNo(indemnityDetail.getAccountNo());
+//                indemnityDetailsDTO.setName(indemnityDetail.getName());
+//                indemnityDetailsDTO.setEmailId(indemnityDetail.getEmailId());
+//                indemnityDetailsDTO.setFaxNumber(indemnityDetail.getFaxNumber());
+//                indemnityDetailsDTO.setReferenceNumber(indemnityDetail.getReferenceNumber());
+//                indemnityDetailsDTOList.add(indemnityDetailsDTO);
+//            }
+//            
+//		}
+//		return indemnityDetailsDTOList;
+		
+		List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
+		System.out.println(indemnityDetailsList);
+		List<IndemnityDetails> indemnityDetailsDTOList = new ArrayList<>();
+		for(IndemnityDetails indemnityDetail: indemnityDetailsList) {
+			System.out.println(indemnityDetail.getVerify());
+			if(indemnityDetail.getVerify() == false) {
+				indemnityDetailsDTOList.add(indemnityDetail);
+				
+			}
+		}
+		return indemnityDetailsDTOList;
+	}
 
 	
 }

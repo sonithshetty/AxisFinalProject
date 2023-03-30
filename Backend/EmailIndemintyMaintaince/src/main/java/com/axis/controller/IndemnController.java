@@ -78,7 +78,7 @@ public class IndemnController {
 //	}
 	@PutMapping("/indemn/{id}")
 	public ResponseEntity<IndemnityDetailsDTO> updateDetailsById(@PathVariable("id") int id, @RequestBody IndemnityDetailsDTO indemnityDetailsDTO) {
-        IndemnityDetailsDTO updatedIndemnityDetailsDTO = indemnService.updateDetailsById(id, indemnityDetailsDTO);
+        IndemnityDetailsDTO updatedIndemnityDetailsDTO = indemnService.updateDetailsByAccountNo(id, indemnityDetailsDTO);
         return ResponseEntity.ok(updatedIndemnityDetailsDTO);
     }
 	
@@ -91,4 +91,10 @@ public class IndemnController {
         return ResponseEntity.ok(message);
     }
 	
+	@GetMapping("/indemn/nonverified")
+	public ResponseEntity<List<IndemnityDetails>> getDetailsByIsVerified(){
+		List<IndemnityDetails> indemnityDetailsDTOList = indemnService.getDetailsByIsVerified();
+        return ResponseEntity.ok(indemnityDetailsDTOList);
+	}
+
 }

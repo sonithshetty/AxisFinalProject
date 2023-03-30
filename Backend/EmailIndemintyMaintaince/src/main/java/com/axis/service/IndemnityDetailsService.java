@@ -12,10 +12,11 @@ public interface IndemnityDetailsService {
 //	IndemintyDetails updateDetailsById(int id, IndemintyDetails indemnDetails);
 //	String deleteDetailsById(int id);
 	
-    IndemnityDetailsDTO addDetails(IndemnityDetailsDTO indemnityDetailsDTO);
-    List<IndemnityDetailsDTO> getAllDetails();
+    IndemnityDetailsDTO addDetails(IndemnityDetailsDTO indemnityDetailsDTO);	//add function
+    List<IndemnityDetailsDTO> getAllDetails();									
     IndemnityDetailsDTO getDetailsById(int id);
-    List<IndemnityDetailsDTO> getDetailsByAccountNo(String accountNo);
-    IndemnityDetailsDTO updateDetailsById(int id, IndemnityDetailsDTO indemnityDetailsDTO);
+    List<IndemnityDetailsDTO> getDetailsByAccountNo(String accountNo);			// maker(modify, delete, inquire)
+    List<IndemnityDetails> getDetailsByIsVerified();			// verification for checker(verify)																			// 
+    IndemnityDetailsDTO updateDetailsByAccountNo(int id, IndemnityDetailsDTO indemnityDetailsDTO);
     String deleteDetailsById(int id);
 }

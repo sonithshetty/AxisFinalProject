@@ -24,27 +24,27 @@ public class VerifiedIndemnityImpl implements VerifiedIndemnityService{
 	IndemnityDetailsRepository indemnRepository;
 
 	@Override
-	public VerifiedIndemnity addDetails(VerifiedIndemnity verifiedDetails) {
+	public VerifiedIndemnity addVerifiedDetails(VerifiedIndemnity verifiedDetails) {
 		// TODO Auto-generated method stub
 		return verifiedRepository.save(verifiedDetails);
 	}
 
-	@Override
-	public List<VerifiedIndemnity> getDetailsByAccountNo(String accountNo) {
-		// TODO Auto-generated method stub
-		
-		 List<IndemnityDetails> indemnityDetailsList = indemnRepository.findByAccountNo(accountNo);
-         List<IndemnityDetailsDTO> indemnityDetailsDTOList = new ArrayList<>();
-         for (IndemnityDetails indemnityDetails : indemnityDetailsList) {
-             IndemnityDetailsDTO indemnityDetailsDTO = new IndemnityDetailsDTO();
-             indemnityDetailsDTO.setId(indemnityDetails.getId());
-             indemnityDetailsDTO.setAccountNo(indemnityDetails.getAccountNo());
-             indemnityDetailsDTO.setName(indemnityDetails.getName());
-             indemnityDetailsDTO.setEmailId(indemnityDetails.getEmailId());
-             indemnityDetailsDTO.setFaxNumber(indemnityDetails.getFaxNumber());
-             indemnityDetailsDTO.setReferenceNumber(indemnityDetails.getReferenceNumber());
-             indemnityDetailsDTOList.add(indemnityDetailsDTO);
-         }
-         return indemnityDetailsDTOList;
-	}
+//	@Override
+//	public List<VerifiedIndemnity> getDetailsByAccountNo(String accountNo) {
+//		// TODO Auto-generated method stub
+//		
+//		 List<IndemnityDetails> indemnityDetailsList = indemnRepository.findByAccountNo(accountNo);
+//         List<IndemnityDetailsDTO> indemnityDetailsDTOList = new ArrayList<>();
+//         for (IndemnityDetails indemnityDetails : indemnityDetailsList) {
+//             IndemnityDetailsDTO indemnityDetailsDTO = new IndemnityDetailsDTO();
+//             indemnityDetailsDTO.setId(indemnityDetails.getId());
+//             indemnityDetailsDTO.setAccountNo(indemnityDetails.getAccountNo());
+//             indemnityDetailsDTO.setName(indemnityDetails.getName());
+//             indemnityDetailsDTO.setEmailId(indemnityDetails.getEmailId());
+//             indemnityDetailsDTO.setFaxNumber(indemnityDetails.getFaxNumber());
+//             indemnityDetailsDTO.setReferenceNumber(indemnityDetails.getReferenceNumber());
+//             indemnityDetailsDTOList.add(indemnityDetailsDTO);
+//         }
+//         return indemnityDetailsDTOList;
+//	}
 }

@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "INDEMNITY_DETAILS")
@@ -21,8 +21,10 @@ public class IndemnityDetails {
 //	private AccountDetails accountNo;
 //	private Long accountNo;
 	
-	@Column(name = "AUTHORISED_SIGNATORY")
+	@Column(name = "AUTHORISED_SIGNATORY", nullable = false)
 	private String name;
+	
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
 	private String emailId;
 	
 	@Column(name = "fax_number", nullable = true, unique = true)
@@ -30,30 +32,33 @@ public class IndemnityDetails {
 	
 	@Column(name = "reference_number", nullable = true, unique = true)
 	private String referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
+	
+	@Column(name = "accountNo",nullable = false)
 	private String accountNo;
 	
 //	private Boolean digitalSignature;
 //	private Boolean delete;
 //	private Boolean modify;
-//	private Boolean verify;
+	private Boolean verify;
 	
 	public IndemnityDetails() {
 		super();
 		
 	}
-	public IndemnityDetails(String name, String emailId, Long faxNumber, String referenceNumber,String accountNo) {
+		
+	public IndemnityDetails(int id, String name,
+			@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}") String emailId, Long faxNumber,
+			String referenceNumber, String accountNo, Boolean verify) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.emailId = emailId;
 		this.faxNumber = faxNumber;
 		this.referenceNumber = referenceNumber;
 		this.accountNo = accountNo;
-//		this.digitalSignature = digitalSignature;
-//		this.delete = delete;
-//		this.modify = modify;
-//		this.verify = verify;
+		this.verify = verify;
 	}
-	
+
 	public String getAccountNo() {
 		return accountNo;
 	}
@@ -109,17 +114,16 @@ public class IndemnityDetails {
 //	public void setModify(Boolean modify) {
 //		this.modify = modify;
 //	}
-//	public Boolean getVerify() {
-//		return verify=false;
-//	}
-//	public void setVerify(Boolean verify) {
-//		this.verify = verify;
-//	}
+	public Boolean getVerify() {
+		return verify= verify;
+	}
+	public void setVerify(Boolean verify) {
+		this.verify = verify;
+	}
 	@Override
 	public String toString() {
 		return "IndemnityDetails [id=" + id + ", name=" + name + ", emailId=" + emailId + ", faxNumber=" + faxNumber
-				+ ", referenceNumber=" + referenceNumber + ", accountNo=" + accountNo + "]";
+				+ ", referenceNumber=" + referenceNumber + ", accountNo=" + accountNo + ", verify=" + verify + "]";
 	}
-	
-	
+		
 }
