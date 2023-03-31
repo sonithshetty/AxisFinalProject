@@ -16,11 +16,6 @@ public class IndemnityDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "accountNo", referencedColumnName = "Account_number")
-//	private AccountDetails accountNo;
-//	private Long accountNo;
-	
 	@Column(name = "AUTHORISED_SIGNATORY", nullable = false)
 	private String name;
 	
@@ -96,26 +91,9 @@ public class IndemnityDetails {
 	public void setReferenceNumber(String referenceNumber) {
 		this.referenceNumber = referenceNumber;
 	}
-//	public Boolean getDigitalSignature() {
-//		return digitalSignature;
-//	}
-//	public void setDigitalSignature(Boolean digitalSignature) {
-//		this.digitalSignature = digitalSignature;
-//	}
-//	public Boolean getDelete() {
-//		return delete;
-//	}
-//	public void setDelete(Boolean delete) {
-//		this.delete = delete;
-//	}
-//	public Boolean getModify() {
-//		return modify;
-//	}
-//	public void setModify(Boolean modify) {
-//		this.modify = modify;
-//	}
+
 	public Boolean getVerify() {
-		return verify= verify;
+		return verify;
 	}
 	public void setVerify(Boolean verify) {
 		this.verify = verify;
