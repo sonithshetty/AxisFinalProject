@@ -53,9 +53,10 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	            indemnityDetails.setVerify(false);
 	            indemnityDetailsList.add(indemnityDetails);
 		}
-		
+		        
+        List<IndemnityDetails> indemnityDetailLists= indemnRepository.saveAll(indemnityDetailsList);
+        return indemnityDetailLists;
         
-        return indemnRepository.saveAll(indemnityDetailsList);
 	}
 
 	@Override
@@ -174,5 +175,4 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 		return indemnityDetailsDTOList;
 	}
 
-	
 }

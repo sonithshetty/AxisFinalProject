@@ -19,13 +19,13 @@ public class VerifiedIndemnity {
 	private String name;
 	private String emailId;
 	private Long faxNumber;
-	private Long referenceNumber;
+	private String referenceNumber;
 	private String accountNo;
 	
 	public VerifiedIndemnity() {
 		super();
 	}
-	public VerifiedIndemnity(int id, String name, String emailId, Long faxNumber, Long referenceNumber,
+	public VerifiedIndemnity(int id, String name, String emailId, Long faxNumber, String referenceNumber,
 			String accountNo) {
 		super();
 		this.id = id;
@@ -59,10 +59,10 @@ public class VerifiedIndemnity {
 	public void setFaxNumber(Long faxNumber) {
 		this.faxNumber = faxNumber;
 	}
-	public Long getReferenceNumber() {
+	public String getReferenceNumber() {
 		return referenceNumber;
 	}
-	public void setReferenceNumber(Long referenceNumber) {
+	public void setReferenceNumber(String referenceNumber) {
 		this.referenceNumber = referenceNumber;
 	}
 	public String getAccountNo() {
