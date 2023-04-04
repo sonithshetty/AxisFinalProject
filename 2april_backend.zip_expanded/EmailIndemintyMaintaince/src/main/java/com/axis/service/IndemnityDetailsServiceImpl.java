@@ -54,7 +54,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	            indemnityDetailsList.add(indemnityDetails);
 		}
 		        
-        List<IndemnityDetails> indemnityDetailLists= indemnRepository.saveAll(indemnityDetailsList);
+        List<IndemnityDetails> indemnityDetailLists = indemnRepository.saveAll(indemnityDetailsList);
         return indemnityDetailLists;
         
 	}

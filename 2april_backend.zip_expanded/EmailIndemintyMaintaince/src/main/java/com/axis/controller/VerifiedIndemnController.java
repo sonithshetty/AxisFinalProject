@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.axis.dto.VerifiedIndemnityDTO;
 import com.axis.model.IndemnityDetails;
 import com.axis.model.VerifiedIndemnity;
 import com.axis.repository.IndemnityDetailsRepository;
@@ -36,10 +37,10 @@ public class VerifiedIndemnController {
 	
 	
 	@GetMapping("/verified")
-	public ResponseEntity<List<VerifiedIndemnity>> getDetails(){
+	public ResponseEntity<List<VerifiedIndemnityDTO>> getDetails(){
 		List<IndemnityDetails> indemnDetails = indemnRepository.findAll();
-		List<VerifiedIndemnity> verifiedList = verifiedService.addVerifiedDetails(indemnDetails);
-        return ResponseEntity.ok(verifiedList);
+		List<VerifiedIndemnityDTO> verifiedListDTO = verifiedService.addVerifiedDetails(indemnDetails);
+        return ResponseEntity.ok(verifiedListDTO);
 	}
 	
 	@DeleteMapping("/verified/{id}")
