@@ -109,6 +109,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
         }
 	}
 
+	
 	@Override
 	public String deleteDetailsById(int id) {
 		// TODO Auto-generated method stub
@@ -137,8 +138,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	                indemnityDetailsDTO.setReferenceNumber(indemnityDetails.getReferenceNumber());
 	                indemnityDetailsDTOList.add(indemnityDetailsDTO);
 	            }
-	            return indemnityDetailsDTOList;
-	        
+	            return indemnityDetailsDTOList;      
 	}
 
 	@Override

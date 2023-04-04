@@ -26,15 +26,14 @@ public class VerifiedIndemnityImpl implements VerifiedIndemnityService{
 	IndemnityDetailsRepository indemnRepository;
 
 	@Override
-	public List<VerifiedIndemnity> addVerifiedDetails(IndemnityDetails indemnDetails) {
+	public List<VerifiedIndemnity> addVerifiedDetails(List<IndemnityDetails> indemnDetails) {
 		// TODO Auto-generated method stub
-		
 		List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
 		System.out.println(indemnityDetailsList);
 		List<VerifiedIndemnity> verifiedDetails = new ArrayList<>();
 		for(IndemnityDetails indemnityDetail: indemnityDetailsList) {
 			System.out.println(indemnityDetail.getVerify());
-			if(indemnityDetail.getVerify() == false) {
+			if(indemnityDetail.getVerify() == true) {
 				VerifiedIndemnity verifyDetails = new VerifiedIndemnity();
 				verifyDetails.setName(indemnityDetail.getName());
 				verifyDetails.setEmailId(indemnityDetail.getEmailId());
@@ -44,7 +43,7 @@ public class VerifiedIndemnityImpl implements VerifiedIndemnityService{
 				verifiedDetails.add(verifyDetails);
 			}
 		}
-		return verifiedDetails;
+		return verifiedDetails = indemnRepository.save();
 	}
 
 	@Override
