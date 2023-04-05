@@ -51,8 +51,14 @@ public class IndemnController {
 	
 	@PutMapping("/indemn/{id}")
 	public ResponseEntity<IndemnityDetailsDTO> updateDetailsById(@PathVariable("id") int id, @RequestBody IndemnityDetailsDTO indemnityDetailsDTO) {
-        IndemnityDetailsDTO updatedIndemnityDetailsDTO = indemnService.updateDetailsByAccountNo(id, indemnityDetailsDTO);
+        IndemnityDetailsDTO updatedIndemnityDetailsDTO = indemnService.updateDetailsById(id, indemnityDetailsDTO);
         return ResponseEntity.ok(updatedIndemnityDetailsDTO);
+    }
+	
+	@PutMapping("/indemn/update")
+	public ResponseEntity<List<IndemnityDetails>> updateDetailsByIdList(@RequestBody List<IndemnityDetails> indemnityDetails) {
+		List<IndemnityDetails> updatedIndemnityDetails = indemnService.updateDetailsByIdList(indemnityDetails);
+        return ResponseEntity.ok(updatedIndemnityDetails);
     }
 	
 	@DeleteMapping("/indemn/{id}")
@@ -61,6 +67,13 @@ public class IndemnController {
         return ResponseEntity.ok(message);
     }
 	
+	@DeleteMapping("/indemn/delete")
+	public ResponseEntity<List<Integer>> deleteDetailsByIdList(@RequestBody List<Integer> ids) {
+	    List<Integer> deletedIds = indemnService.deleteDetailsByIdList(ids);
+	    return ResponseEntity.ok(deletedIds);
+	}
+	
+
 	@GetMapping("/indemn/nonverified")
 	public ResponseEntity<List<IndemnityDetails>> getDetailsByIsVerified(){
 		List<IndemnityDetails> indemnityDetailsDTOList = indemnService.getDetailsByIsVerified();

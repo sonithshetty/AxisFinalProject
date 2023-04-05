@@ -92,7 +92,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
         }	}
 
 	@Override
-	public IndemnityDetailsDTO updateDetailsByAccountNo(int id, IndemnityDetailsDTO indemnityDetailsDTO) {
+	public IndemnityDetailsDTO updateDetailsById(int id, IndemnityDetailsDTO indemnityDetailsDTO) {
 		// TODO Auto-generated method stub
 		Optional<IndemnityDetails> optionalIndemnityDetails = indemnRepository.findById(id);
         if (optionalIndemnityDetails.isPresent()) {
@@ -173,6 +173,36 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 			}
 		}
 		return indemnityDetailsDTOList;
+	}
+
+	@Override
+	public List<IndemnityDetails> updateDetailsByIdList(List<IndemnityDetails> indemnityDetails) {
+		// TODO Auto-generated method stub
+//		List<IndemnityDetails> indemnityDetailsList = indemnityDetails;
+		List<IndemnityDetails> updatedIndemnityList = new ArrayList<IndemnityDetails>( );
+		
+		for (IndemnityDetails indemnityDetail: indemnityDetails) 
+		{
+			 IndemnityDetails toUpdateList = new IndemnityDetails();
+				 toUpdateList.setId(indemnityDetail.getId());
+				 toUpdateList.setAccountNo(indemnityDetail.getAccountNo());
+				 toUpdateList.setName(indemnityDetail.getName());
+				 toUpdateList.setEmailId(indemnityDetail.getEmailId());
+				 toUpdateList.setFaxNumber(indemnityDetail.getFaxNumber());
+				 toUpdateList.setReferenceNumber(indemnityDetail.getReferenceNumber());
+				 toUpdateList.setVerify(false);
+	             updatedIndemnityList.add(toUpdateList);
+		}
+		        
+        List<IndemnityDetails> indemnityDetailLists = indemnRepository.saveAll(indemnityDetails);
+        return indemnityDetailLists;
+	}
+
+	@Override
+	public List<Integer> deleteDetailsByIdList(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		indemnRepository.deleteAllById(ids);
+	    return ids;
 	}
 
 }
