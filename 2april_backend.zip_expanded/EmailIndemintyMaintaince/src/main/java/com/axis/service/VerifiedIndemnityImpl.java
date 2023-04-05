@@ -2,16 +2,12 @@ package com.axis.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.axis.dto.IndemnityDetailsDTO;
 import com.axis.dto.VerifiedIndemnityDTO;
-import com.axis.exception.IdNotFoundException;
 import com.axis.model.IndemnityDetails;
 import com.axis.model.VerifiedIndemnity;
 import com.axis.repository.IndemnityDetailsRepository;
@@ -25,28 +21,6 @@ public class VerifiedIndemnityImpl implements VerifiedIndemnityService{
 	
 	@Autowired
 	IndemnityDetailsRepository indemnRepository;
-
-//	@Override
-//	public List<VerifiedIndemnity> addVerifiedDetails(List<IndemnityDetails> indemnDetails) {
-//		// TODO Auto-generated method stub
-//		List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
-//		System.out.println(indemnityDetailsList);
-//		List<VerifiedIndemnity> verifiedDetails = new ArrayList<>();
-//		for(IndemnityDetails indemnityDetail: indemnityDetailsList) {
-//			System.out.println(indemnityDetail.getVerify());
-//			if(indemnityDetail.getVerify() == true) {
-//				VerifiedIndemnity verifyDetails = new VerifiedIndemnity();
-//				verifyDetails.setName(indemnityDetail.getName());
-//				verifyDetails.setEmailId(indemnityDetail.getEmailId());
-//				verifyDetails.setFaxNumber(indemnityDetail.getFaxNumber());
-//				verifyDetails.setReferenceNumber(indemnityDetail.getReferenceNumber());
-//				verifyDetails.setAccountNo(indemnityDetail.getAccountNo());
-//				verifiedDetails.add(verifyDetails);
-//			}
-//		}
-//		return verifiedDetails;
-//	
-//	}
 	
 	@Override
 	public List<VerifiedIndemnityDTO> addVerifiedDetails(List<IndemnityDetails> indemnDetailsList) {
@@ -86,17 +60,30 @@ public class VerifiedIndemnityImpl implements VerifiedIndemnityService{
 	    return savedVerifiedIndemnityDTOs;
 	}
 
+	@Override
+	public List<Integer> deleteVerifiedDetailsByIdList(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		verifiedRepository.deleteAllById(ids);
+	    return ids;
+	}
 
 	@Override
-	public String deleteVerifiedDetails(int id) {
+	public List<VerifiedIndemnityDTO> getDetailsByAccountNo(String accountNo) {
 		// TODO Auto-generated method stub
-		Optional<VerifiedIndemnity> optionalVerifiedDetails = verifiedRepository.findById(id);
-        if (optionalVerifiedDetails.isPresent()) {
-        	verifiedRepository.deleteById(id);
-            return "Selected VerifiedDetails deleted Successfully";
-        } else {
-            throw new IdNotFoundException("No such id is present to delete the value");
+		List<VerifiedIndemnity> verifiedDetailsList = verifiedRepository.findByAccountNo(accountNo);
+        List<VerifiedIndemnityDTO> verifiedDetailsDTOList = new ArrayList<>();
+        for (VerifiedIndemnity verifiedDetails : verifiedDetailsList) {
+            VerifiedIndemnityDTO verifiedDetailsDTO = new VerifiedIndemnityDTO();
+            verifiedDetailsDTO.setId(verifiedDetails.getId());
+            verifiedDetailsDTO.setAccountNo(verifiedDetails.getAccountNo());
+            verifiedDetailsDTO.setName(verifiedDetails.getName());
+            verifiedDetailsDTO.setEmailId(verifiedDetails.getEmailId());
+            verifiedDetailsDTO.setFaxNumber(verifiedDetails.getFaxNumber());
+            verifiedDetailsDTO.setReferenceNumber(verifiedDetails.getReferenceNumber());
+            verifiedDetailsDTOList.add(verifiedDetailsDTO);
         }
+        return verifiedDetailsDTOList; 
 	}
+
 
 }

@@ -20,23 +20,6 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 
 	@Override
 	public List<IndemnityDetails> addDetails(List<IndemnityDetailsDTO> indemnityDetailsDTO) {
-	
-//		IndemnityDetails indemnityDetails = new IndemnityDetails();
-//        indemnityDetails.setAccountNo(indemnityDetailsDTO.getAccountNo());
-//        indemnityDetails.setName(indemnityDetailsDTO.getName());
-//        indemnityDetails.setEmailId(indemnityDetailsDTO.getEmailId());
-//        indemnityDetails.setFaxNumber(indemnityDetailsDTO.getFaxNumber());
-//        indemnityDetails.setReferenceNumber(indemnityDetailsDTO.getReferenceNumber());
-//        indemnityDetails.setVerify(false);
-//        indemnityDetails = indemnRepository.save(indemnityDetails);
-//        IndemnityDetailsDTO resultDto = new IndemnityDetailsDTO();
-//        resultDto.setId(indemnityDetails.getId());
-//        resultDto.setAccountNo(indemnityDetails.getAccountNo());
-//        resultDto.setName(indemnityDetails.getName());
-//        resultDto.setEmailId(indemnityDetails.getEmailId());
-//        resultDto.setFaxNumber(indemnityDetails.getFaxNumber());
-//        resultDto.setReferenceNumber(indemnityDetails.getReferenceNumber());
-//        resultDto.setVerify(indemnityDetails.getVerify());
 		
 		List<IndemnityDetailsDTO> indemnityDetailsDTOList = indemnityDetailsDTO;
 		List<IndemnityDetails> indemnityDetailsList = new ArrayList<IndemnityDetails>( );
@@ -143,24 +126,6 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 
 	@Override
 	public List<IndemnityDetails> getDetailsByIsVerified() {
-		// TODO Auto-generated method stub
-//		List<IndemnityDetailsDTO> indemnityDetailsDTOList = new ArrayList<>();
-//		if(indemnityDetails.getVerify() == false) {
-//			List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
-//			
-//            for (IndemnityDetails indemnityDetail : indemnityDetailsList) {
-//                IndemnityDetailsDTO indemnityDetailsDTO = new IndemnityDetailsDTO();
-//                indemnityDetailsDTO.setId(indemnityDetail.getId());
-//                indemnityDetailsDTO.setAccountNo(indemnityDetail.getAccountNo());
-//                indemnityDetailsDTO.setName(indemnityDetail.getName());
-//                indemnityDetailsDTO.setEmailId(indemnityDetail.getEmailId());
-//                indemnityDetailsDTO.setFaxNumber(indemnityDetail.getFaxNumber());
-//                indemnityDetailsDTO.setReferenceNumber(indemnityDetail.getReferenceNumber());
-//                indemnityDetailsDTOList.add(indemnityDetailsDTO);
-//            }
-//            
-//		}
-//		return indemnityDetailsDTOList;
 		
 		List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
 		System.out.println(indemnityDetailsList);
@@ -178,7 +143,6 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	@Override
 	public List<IndemnityDetails> updateDetailsByIdList(List<IndemnityDetails> indemnityDetails) {
 		// TODO Auto-generated method stub
-//		List<IndemnityDetails> indemnityDetailsList = indemnityDetails;
 		List<IndemnityDetails> updatedIndemnityList = new ArrayList<IndemnityDetails>( );
 		
 		for (IndemnityDetails indemnityDetail: indemnityDetails) 

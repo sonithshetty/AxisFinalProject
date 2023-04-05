@@ -67,7 +67,7 @@ public class IndemnController {
         return ResponseEntity.ok(message);
     }
 	
-	@DeleteMapping("/indemn/delete")
+	@DeleteMapping("/indemn/cancel")
 	public ResponseEntity<List<Integer>> deleteDetailsByIdList(@RequestBody List<Integer> ids) {
 	    List<Integer> deletedIds = indemnService.deleteDetailsByIdList(ids);
 	    return ResponseEntity.ok(deletedIds);

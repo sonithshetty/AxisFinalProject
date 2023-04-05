@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.axis.dto.VerifiedIndemnityDTO;
 import com.axis.model.IndemnityDetails;
-import com.axis.model.VerifiedIndemnity;
 import com.axis.repository.IndemnityDetailsRepository;
 import com.axis.repository.VerifiedIndemnityRepository;
 import com.axis.service.IndemnityDetailsService;
@@ -43,10 +42,16 @@ public class VerifiedIndemnController {
         return ResponseEntity.ok(verifiedListDTO);
 	}
 	
-	@DeleteMapping("/verified/{id}")
-	public ResponseEntity<String> deleteDetailsById(@PathVariable("id") int id) {
-        String message = verifiedService.deleteVerifiedDetails(id);
-        return ResponseEntity.ok(message);
+	@GetMapping("/verified/{accountNo}")
+	public ResponseEntity<List<VerifiedIndemnityDTO>> getDetailsByAccountNo(@PathVariable String accountNo) {
+        List<VerifiedIndemnityDTO> verifiedDetailsDTO = verifiedService.getDetailsByAccountNo(accountNo);
+        return ResponseEntity.ok(verifiedDetailsDTO);
     }
+	
+	@DeleteMapping("/verified/delete")
+	public ResponseEntity<List<Integer>> deleteDetailsByIdList(@RequestBody List<Integer> ids) {
+	    List<Integer> deletedIds = verifiedService.deleteVerifiedDetailsByIdList(ids);
+	    return ResponseEntity.ok(deletedIds);
+	}
 	
 }

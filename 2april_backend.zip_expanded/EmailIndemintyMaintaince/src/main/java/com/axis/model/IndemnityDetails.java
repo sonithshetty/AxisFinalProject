@@ -25,7 +25,7 @@ public class IndemnityDetails {
 	@Column(name = "fax_number", nullable = true, unique = true)
 	private Long faxNumber;
 	
-	@Column(name = "reference_number", nullable = true, unique = true)
+	@Column(name = "reference_number", nullable = true)
 	private String referenceNumber;  //to be entered only if digital signature available and auto-delete when if disabled again 
 	
 	@Column(name = "accountNo",nullable = false)
