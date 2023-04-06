@@ -125,7 +125,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	}
 
 	@Override
-	public List<IndemnityDetails> getDetailsByIsVerified() {
+	public List<IndemnityDetails> getDetailsByIsNotVerified() {
 		
 		List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
 		System.out.println(indemnityDetailsList);
@@ -169,4 +169,18 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	    return ids;
 	}
 
+	@Override
+	public List<IndemnityDetails> getDetailsByIsVerified() {
+		// TODO Auto-generated method stub
+		List<IndemnityDetails> indemnityDetailsList = indemnRepository.findAll();
+		System.out.println(indemnityDetailsList);
+		List<IndemnityDetails> indemnityDetailsDTOList = new ArrayList<>();
+		for(IndemnityDetails indemnityDetail: indemnityDetailsList) {
+			System.out.println(indemnityDetail.getVerify());
+			if(indemnityDetail.getVerify() == true) {
+				indemnityDetailsDTOList.add(indemnityDetail);
+			}
+		}
+		return indemnityDetailsDTOList;
+	}
 }

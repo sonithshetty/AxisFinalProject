@@ -42,6 +42,8 @@ public class VerifiedIndemnController {
         return ResponseEntity.ok(verifiedListDTO);
 	}
 	
+	
+	
 	@GetMapping("/verified/{accountNo}")
 	public ResponseEntity<List<VerifiedIndemnityDTO>> getDetailsByAccountNo(@PathVariable String accountNo) {
         List<VerifiedIndemnityDTO> verifiedDetailsDTO = verifiedService.getDetailsByAccountNo(accountNo);

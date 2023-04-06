@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { Link, Redirect } from "react-router-dom";
 
 function Table() {
   const [data, setData] = useState([
@@ -94,6 +95,10 @@ function Table() {
     }
   };
 
+  const changePath = () => {
+    <Link to="/"></Link>
+  }
+
   const submitData = async (event) => {
     event.preventDefault();
     const accId = Cookies.get("js-accountId");
@@ -123,6 +128,7 @@ function Table() {
     };
     const response = await fetch("http://localhost:8094/indemn", options);
     const dataDetails = await response.json();
+    alert("Data Added Sucssesfully");
     console.log(dataDetails);
   };
 
@@ -219,8 +225,8 @@ function Table() {
       <button type="submit" className="submit-button">
         Submit
       </button>
-      <button type="button" className="go-button-2">
-        Cancel
+      <button type="button" className="go-button-2" onClick={changePath}>
+      <Link to="/">Cancel</Link>
       </button>
     </form>
   );

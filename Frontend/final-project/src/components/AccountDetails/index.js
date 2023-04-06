@@ -131,7 +131,7 @@ class AccountDetails extends Component {
   };
 
   dataToVerify = async () => {
-    const { verifiedLists } = this.state;
+    const { verifiedLists, cancelListIds, faxList } = this.state;
     const url = "http://localhost:8094/indemn/update";
     const options = {
       method: "PUT",
@@ -145,6 +145,29 @@ class AccountDetails extends Component {
     const data = await response.json();
     console.log(data);
 
+    const url2 = "http://localhost:8094/indemn/nonverifed";
+    const options2 = {
+      method: "GET",
+    };
+    const response2 = await fetch(url2, options2);
+    if (response2.ok === true) {
+      const data2 = await response2.json();
+      console.log(data2);
+      const updatedData = data2.map((eachData) => ({
+        id: eachData.id,
+        name: eachData.name,
+        emailId: eachData.emailId,
+        faxNumber: eachData.faxNumber,
+        referenceNumber: eachData.referenceNumber,
+        accountNo: eachData.accountNo,
+        verify: eachData.verify,
+      }));
+
+      this.setState({ faxList: [...updatedData] });
+      console.log(updatedData);
+      console.log(faxList);
+    }
+
     const url1 = "http://localhost:8094/verified";
     const options1 = {
       method: "GET",
@@ -152,13 +175,24 @@ class AccountDetails extends Component {
     const response1 = await fetch(url1, options1);
     const data1 = await response1.json();
     console.log(data1);
+
+    //const { deleteListIds } = this.state;
+    
   };
+
+  changePath = () => {
+    //const {api} = this.state
+    //Cookies.set("js-method", api, {expires: 7})
+    const{history} = this.props
+    history.replace("/")
+}
 
   changeName = (event) => {
     this.setState({ name: event.target.value });
+    console.log(event.target.value)
   };
   changeemailId = (event) => {
-    this.setState({ email: event.target.value });
+    this.setState({ emailId: event.target.value });
   };
   changeFaxNumber = (event) => {
     this.setState({ faxNumber: event.target.value });
@@ -208,11 +242,12 @@ class AccountDetails extends Component {
       const verifiedDetails = faxList.filter((eachData) => {
         if (eachData.id === id && checked === true) {
           console.log(eachData);
-          this.setState({ verifiedLists: [...verifiedLists, eachData] });
+          this.setState({ verifiedLists: [...verifiedLists, eachData] , cancelListIds: [...cancelListIds, eachData.id]});
         }
       });
     }
     console.log(verifiedLists);
+    console.log(cancelListIds);
   };
 
   modifyData = (id) => {
@@ -262,13 +297,352 @@ class AccountDetails extends Component {
   };
 
   renderData = () => {
-    const { indemenity } = this.state;
+    const {
+      modifyId,
+      name,
+      email,
+      faxNumber,
+      refNumber,
+      faxList,
+      page,
+      totalList,
+      indemenity,
+      isDisabled,
+      modify
+    } = this.state;
+    const totalPages = Math.ceil(totalList.length / 7);
+    const api = Cookies.get("js-method");
+    const accId = Cookies.get("js-accountId");
+    const custId = Cookies.get("js-custId");
 
-    if (indemenity.length !== 0) {
+    if (api === "Add") {
+      return <InputData />
+    } else if (api === "Modify") {
+      return (
+        <form onSubmit={this.submitData}>
+          <table>
+            <thead>
+              <tr>
+                <th>Name of Authorised Signatory</th>
+                <th>Email id</th>
+                <th>Fax Number</th>
+                <th>Ref Number</th>
+                <th>Indemnity recieved for digital signature</th>
+                <th>Delete/Cancel</th>
+                <th>Modify</th>
+                <th>Verify</th>
+              </tr>
+            </thead>
+            <tbody>
+              {faxList.map((row, index) => (
+                <tr key={index}>
+                  <td>
+                    <input
+                      type="text"
+                      //required="required"
+                      defaultValue={row.name}
+                      onChange={this.changeName}
+                    // disabled={!isDisabled || !modify}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      //required="required"
+                      defaultValue={row.emailId}
+                      onChange={this.changeEmail}
+                    // disabled={!isDisabled || !modify}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      required="required"
+                      // value={row.faxNumber}
+                      onChange={this.changeFaxNumber}
+                      defaultValue={row.faxNumber}
+                    // disabled={!isDisabled || !row.modify}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      //required="required"
+                      defaultValue={row.referenceNumber}
+                      onChange={this.changeRefNumber}
+                    // disabled={!isDisabled || !modify}
+                    />
+                  </td>
+                  <td>
+                    <button type="button" className="checkbox-button">
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        onChange={(e) => this.handleCheckboxChange(e, index)}
+                      />
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" className="checkbox-button">
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        onChange={(e) => this.handleCheckboxChange(e, index)}
+                      />
+                    </button>
+                  </td>
+                  <td>
+                    <button type="button" className="checkbox-button">
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        name="modify"
+                        value={row.modify}
+                        onChange={(e) =>
+                          this.handleCheckboxChange(e, index, row.id)
+                        }
+                      />
+                    </button>
+                  </td>
+
+                  <td>
+                    <button type="button" className="checkbox-button">
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        onChange={(e) => this.handleCheckboxChange(e, index)}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button onClick={this.dataToUpdate}>Update</button>
+          <button onClick={this.changePath}>Cancel</button>
+        </form>
+      )
+    } else if(api === "Verify"){
+      return (
+        <form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name of Authorised Signatory</th>
+                  <th>Email id</th>
+                  <th>Fax Number</th>
+                  <th>Ref Number</th>
+                  <th>Indemnity recieved for digital signature</th>
+                  <th>Delete/Cancel</th>
+                  <th>Modify</th>
+                  <th>Verify</th>
+                </tr>
+              </thead>
+              <tbody>
+                {faxList.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        required="required"
+                        defaultValue={row.name}
+                        onChange={this.changeName}
+                        // disabled={!isDisabled || !modify}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        required="required"
+                        defaultValue={row.emailId}
+                        onChange={this.changeEmail}
+                        // disabled={!isDisabled || !modify}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        required="required"
+                        // value={row.faxNumber}
+                        onChange={this.changeFaxNumber}
+                        defaultValue={row.faxNumber}
+                        // disabled={!isDisabled || !row.modify}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        //required="required"
+                        defaultValue={row.referenceNumber}
+                        onChange={this.changeRefNumber}
+                        // disabled={!isDisabled || !modify}
+                      />
+                    </td>
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={(e) => this.handleCheckboxChange(e, index)}
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={(e) =>
+                            this.handleCheckboxChange(e, index, row.id)
+                          }
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={(e) =>
+                            this.handleCheckboxChange(e, index, row.id)
+                          }
+                        />
+                      </button>
+                    </td>
+
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          name="verify"
+                          value={row.verify}
+                          onChange={(e) =>
+                            this.handleCheckboxChange(e, index, row.id)
+                          }
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button onClick={this.dataToVerify}>Verify</button>
+          <button onClick={this.changePath}>Cancel</button>
+          </form>
+      )
+    }else if(api === "Cancel"){
+      return (
+        <form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name of Authorised Signatory</th>
+                  <th>Email id</th>
+                  <th>Fax Number</th>
+                  <th>Ref Number</th>
+                  <th>Indemnity recieved for digital signature</th>
+                  <th>Delete/Cancel</th>
+                  <th>Modify</th>
+                  <th>Verify</th>
+                </tr>
+              </thead>
+              <tbody>
+                {faxList.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        //required="required"
+                        defaultValue={row.name}
+                        onChange={this.changeName}
+                        // disabled={!isDisabled || !modify}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        //required="required"
+                        defaultValue={row.emailId}
+                        onChange={this.changeEmail}
+                        // disabled={!isDisabled || !modify}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        //required="required"
+                        //value={row.faxNumber}
+                        onChange={this.changeFaxNumber}
+                        defaultValue={row.faxNumber}
+                        // disabled={!isDisabled || !row.modify}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        //required="required"
+                        defaultValue={row.referenceNumber}
+                        onChange={this.changeRefNumber}
+                        // disabled={!isDisabled || !modify}
+                      />
+                    </td>
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={(e) => this.handleCheckboxChange(e, index)}
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          name="cancel"
+                          value={row.cancel}
+                          onChange={(e) =>
+                            this.handleCheckboxChange(e, index, row.id)
+                          }
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={(e) =>
+                            this.handleCheckboxChange(e, index, row.id)
+                          }
+                        />
+                      </button>
+                    </td>
+
+                    <td>
+                      <button type="button" className="checkbox-button">
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          value={row.verify}
+                          onChange={(e) =>
+                            this.handleCheckboxChange(e, index, row.id)
+                          }
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button onClick={this.dataToCancel}>Delete</button>
+          <button onClick={this.changePath}>Cancel</button>
+          </form>
+      )
     }
   };
-
-  renderUpdate() {}
 
   render() {
     const {
@@ -643,9 +1017,9 @@ class AccountDetails extends Component {
           </form>*/}
 
           {/* DELETE DATA FROM 3rd Table */}
-          <VerifiedDetails />
           {/* <button onClick={this.dataToDelete}>Delete</button>
           <button>Back</button> */}
+          {this.renderData()}
         </div>
       </div>
     );

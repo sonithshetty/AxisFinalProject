@@ -74,8 +74,14 @@ public class IndemnController {
 	}
 	
 
-	@GetMapping("/indemn/nonverified")
-	public ResponseEntity<List<IndemnityDetails>> getDetailsByIsVerified(){
+	@GetMapping("/indemn/nonverified") 
+	public ResponseEntity<List<IndemnityDetails>> getDetailsByIsNotVerified(){
+		List<IndemnityDetails> indemnityDetailsDTOList = indemnService.getDetailsByIsNotVerified();
+        return ResponseEntity.ok(indemnityDetailsDTOList);
+	}
+	
+	@GetMapping("/indemn/verified") 
+	public ResponseEntity<List<IndemnityDetails>> getDetailsByVerified(){
 		List<IndemnityDetails> indemnityDetailsDTOList = indemnService.getDetailsByIsVerified();
         return ResponseEntity.ok(indemnityDetailsDTOList);
 	}

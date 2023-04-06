@@ -39,9 +39,8 @@ class SelectApiMethod extends Component {
             <option value="Add">Add</option>
             <option value="Modify">Modify</option>
             <option value="Verify">Verify</option>
-            <option value="Verify">Inquire</option>
             <option value="Cancel">Cancel</option>
-            <option value="Delete">Delete</option>
+            <option value="Delete">Inquire</option>
           </select>
         </div>
         <button type="button" className="go-button" onClick={this.changePath}>

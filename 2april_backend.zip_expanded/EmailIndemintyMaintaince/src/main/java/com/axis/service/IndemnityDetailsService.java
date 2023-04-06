@@ -17,8 +17,9 @@ public interface IndemnityDetailsService {
     List<IndemnityDetailsDTO> getAllDetails();									
     IndemnityDetailsDTO getDetailsById(int id);
     List<IndemnityDetailsDTO> getDetailsByAccountNo(String accountNo);			// maker(modify, delete, inquire)
-    List<IndemnityDetails> getDetailsByIsVerified();		// verification for checker(verify)		
-    // 
+    List<IndemnityDetails> getDetailsByIsNotVerified();		// verification for checker(verify)		
+    List<IndemnityDetails> getDetailsByIsVerified();
+    
     IndemnityDetailsDTO updateDetailsById(int id, IndemnityDetailsDTO indemnityDetailsDTO);
     List<IndemnityDetails> updateDetailsByIdList(List<IndemnityDetails> indemnDetails);
     
