@@ -6,6 +6,7 @@ import RowsData from "../RowsData";
 import "./index.css";
 import Cookies from "js-cookie";
 import { isDisabled } from "@testing-library/user-event/dist/utils";
+import VerifiedDetails from "../VerifiedDetails";
 
 class AccountDetails extends Component {
   state = {
@@ -642,111 +643,9 @@ class AccountDetails extends Component {
           </form>*/}
 
           {/* DELETE DATA FROM 3rd Table */}
-          <form onSubmit={this.submitData}>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name of Authorised Signatory</th>
-                  <th>Email id</th>
-                  <th>Fax Number</th>
-                  <th>Ref Number</th>
-                  <th>Indemnity recieved for digital signature</th>
-                  <th>Delete/Cancel</th>
-                  <th>Modify</th>
-                  <th>Verify</th>
-                </tr>
-              </thead>
-              <tbody>
-                {faxList.map((row, index) => (
-                  <tr key={index}>
-                    <td>
-                      <input
-                        type="text"
-                        required="required"
-                        defaultValue={row.name}
-                        onChange={this.changeName}
-                        // disabled={!isDisabled || !modify}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        required="required"
-                        defaultValue={row.emailId}
-                        onChange={this.changeEmail}
-                        // disabled={!isDisabled || !modify}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        required="required"
-                        // value={row.faxNumber}
-                        onChange={this.changeFaxNumber}
-                        defaultValue={row.faxNumber}
-                        // disabled={!isDisabled || !row.modify}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        required="required"
-                        defaultValue={row.referenceNumber}
-                        onChange={this.changeRefNumber}
-                        // disabled={!isDisabled || !modify}
-                      />
-                    </td>
-                    <td>
-                      <button type="button" className="checkbox-button">
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          onChange={(e) => this.handleCheckboxChange(e, index)}
-                        />
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" className="checkbox-button">
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          name="delete"
-                          onChange={(e) =>
-                            this.handleCheckboxChange(e, index, row.id)
-                          }
-                        />
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" className="checkbox-button">
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          onChange={(e) =>
-                            this.handleCheckboxChange(e, index, row.id)
-                          }
-                        />
-                      </button>
-                    </td>
-
-                    <td>
-                      <button type="button" className="checkbox-button">
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          onChange={(e) =>
-                            this.handleCheckboxChange(e, index, row.id)
-                          }
-                        />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </form>
-          <button onClick={this.dataToDelete}>Cancel</button>
-          <button>Back</button>
+          <VerifiedDetails />
+          {/* <button onClick={this.dataToDelete}>Delete</button>
+          <button>Back</button> */}
         </div>
       </div>
     );
