@@ -175,7 +175,7 @@ class FaxDetails extends Component {
                   </td>
                 </tr>;
               } else {
-                alert("nothing displyed");
+                alert("nothing displayed");
               }
             })}
           </tbody>

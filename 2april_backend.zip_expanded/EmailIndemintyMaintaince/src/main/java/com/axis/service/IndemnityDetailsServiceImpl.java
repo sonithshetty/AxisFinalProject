@@ -119,6 +119,7 @@ public class IndemnityDetailsServiceImpl implements IndemnityDetailsService{
 	                indemnityDetailsDTO.setEmailId(indemnityDetails.getEmailId());
 	                indemnityDetailsDTO.setFaxNumber(indemnityDetails.getFaxNumber());
 	                indemnityDetailsDTO.setReferenceNumber(indemnityDetails.getReferenceNumber());
+	                indemnityDetailsDTO.setVerify(indemnityDetails.getVerify());
 	                indemnityDetailsDTOList.add(indemnityDetailsDTO);
 	            }
 	            return indemnityDetailsDTOList;      
