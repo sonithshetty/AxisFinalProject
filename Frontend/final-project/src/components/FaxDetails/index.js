@@ -7,25 +7,7 @@ class FaxDetails extends Component {
   state = {
     accountId: "",
     customerId: "",
-    indemenity: [
-      {
-        id: 1,
-        name: "imran",
-        email: "imran@email.com",
-        faxNumber: 489562,
-        refNumber: "48694",
-      },
-      {
-        id: 2,
-        name: "sonit",
-        email: "sonit@email.com",
-        faxNumber: 489563,
-        refNumber: "48694",
-      },
-    ],
   };
-
-  //const [accountDetails, setAccountDetails] = useSate([]);
 
   searchCustId = async () => {
     const { accountId, indemenity } = this.state;
@@ -42,6 +24,8 @@ class FaxDetails extends Component {
 
   cancelTheProcess = () => {
     this.setState({ accountId: "", customerId: "" });
+    const { history } = this.props;
+    history.replace("/");
   };
 
   changeCustId = (event) => {
@@ -54,7 +38,12 @@ class FaxDetails extends Component {
     const { accountId, customerId } = this.state;
     Cookies.set("js-accountId", accountId, { expires: 7 });
     Cookies.set("js-custId", customerId, { expires: 7 });
-    history.replace("/total-faxes");
+   
+    if(accountId === "" && customerId === ""){
+      alert("Account Number and Customer Id Required")
+    }else{
+      history.replace("/total-faxes");
+    }
   };
 
   changeAccountId = (event) => {
@@ -62,7 +51,7 @@ class FaxDetails extends Component {
   };
 
   render() {
-    const { accountId, customerId, indemenity } = this.state;
+    const { accountId, customerId} = this.state;
     const api = Cookies.get("js-method");
     return (
       <div className="email-container">
@@ -114,72 +103,8 @@ class FaxDetails extends Component {
           className="go-button-2"
           onClick={this.cancelTheProcess}
         >
-          Cancel
+        Cancel
         </button>
-
-        <table>
-          <tbody>
-            {indemenity.map((each) => {
-              if (each.id !== "") {
-                <tr key={each.id}>
-                  <td>
-                    <input
-                      type="text"
-                      //required="required"
-                      value={each.name}
-                      onChange={this.changeName}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      //required="required"
-                      value={each.email}
-                      onChange={this.changeEmail}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      //required="required"
-                      value={each.faxNumber}
-                      onChange={this.changeFaxNumber}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      //required="required"
-                      value={each.refNumber}
-                      onChange={this.changeRefNumber}
-                    />
-                  </td>
-                  <td>
-                    <button type="button" className="checkbox-button">
-                      <input type="checkbox" className="checkbox" />
-                    </button>
-                  </td>
-                  <td>
-                    <button type="button" className="checkbox-button">
-                      <input type="checkbox" className="checkbox" />
-                    </button>
-                  </td>
-                  <td>
-                    <button type="button">Save</button>
-                  </td>
-
-                  <td>
-                    <button type="button" className="checkbox-button">
-                      <input type="checkbox" className="checkbox" />
-                    </button>
-                  </td>
-                </tr>;
-              } else {
-                alert("nothing displayed");
-              }
-            })}
-          </tbody>
-        </table>
       </div>
     );
   }

@@ -11,7 +11,12 @@ class SelectApiMethod extends Component {
     const { api } = this.state;
     Cookies.set("js-method", api, { expires: 7 });
     const { history } = this.props;
-    history.replace("/fax-method");
+    
+    if(api === "--Select--"){
+      alert("Plese Select Function")
+    }else{
+      history.replace("/fax-method");
+    }
   };
 
   changeApiMethod = (event) => {

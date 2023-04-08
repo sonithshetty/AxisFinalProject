@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 function Table() {
   const [data, setData] = useState([]);
-  const [newData, setNewData] = useState([]);
   const [toUpdateList, setToUpdateList] = useState([]);
-  const [id, setId] = useState();
-  const [name, setName] = useState("");
-  const [emailId, setEmailId] = useState("");
-  const [faxNumber, setFaxNumber] = useState(0);
-  const [referenceNumber, setReferenceNumber] = useState("");
-  const [verify, setVerify] = useState(false);
 
   useEffect(() => {
     const accountNo = Cookies.get("js-accountId");
     const url = "http://localhost:8094/indemn/" + accountNo;
     const options = {
       method: "GET",
-    };
-    const arr = [];
+    }
 
     fetch(url, options)
       .then((response) => response.json())
@@ -33,17 +25,10 @@ function Table() {
           accountNo: eachData.accountNo,
           verify: eachData.verify,
         }));
-        console.log(name);
         setData(updatedData); // Update the state with the new array returned by map()
         console.log(updatedData);
       });
   }, []);
-
-  const [isDigitalSignatureChecked, setIsDigitalSignatureChecked] =
-    useState(false);
-  const [isDeleteChecked, setIsDeleteChecked] = useState(false);
-  const [isModifyChecked, setIsModifyChecked] = useState(false);
-  const [isVerifyChecked, setIsVerifyChecked] = useState(false);
 
   const handleCheckboxChange = (event, index, id) => {
     const { name, checked } = event.target;
@@ -52,24 +37,12 @@ function Table() {
     newData[index][name] = checked;
 
     if (name === "modify") {
-      let arr = [];
+      const selectedRows = data.filter((eachData) => eachData.modify);
 
-      data.forEach((eachData) => {
-        if (eachData.modify) {
-          arr.push(eachData);
-        }
-      });
-
-      setToUpdateList(arr);
-      console.log(name);
-      console.log(toUpdateList);
-      // console.log(arr);
+      setToUpdateList(selectedRows);
     }
   };
 
-  const changePath = () => {
-    <Link to="/"></Link>;
-  };
 
   const dataToUpdate = async () => {
     // const { toUpdateList } = this.state;
@@ -85,14 +58,31 @@ function Table() {
     const response = await fetch(url, options);
     const data = await response.json();
     console.log(data);
-    console.log(name);
+    if (response.ok) {
+      alert("Data Updated Succesfully");
+    } else {
+      alert("Data Not Updated")
+    }
   };
 
   const handleInputChange = (event, index) => {
     const { name, value } = event.target;
     const newData = [...data];
-    newData[index][name] = value;
+
+    if (name === "name") {
+      newData[index]["name"] = value;
+    }
+    if (name === "emailId") {
+      newData[index]["emailId"] = value;
+    }
+    if (name === "faxNumber") {
+      newData[index]["faxNumber"] = value;
+    }
+    if (name === "referenceNumber") {
+      newData[index]["referenceNumber"] = value;
+    }
     setData(newData);
+    console.log(newData)
   };
 
   return (
@@ -117,79 +107,83 @@ function Table() {
                 <input
                   type="text"
                   //required="required"
+                  name="name"
                   defaultValue={row.name}
-                  onChange={(e) => setName(e.target.value)}
-                  // disabled={!isDisabled || !modify}
+                  onChange={(e) => handleInputChange(e, index)}
+                // disabled={!isDisabled || !modify}
                 />
               </td>
               <td>
                 <input
                   type="email"
                   //required="required"
+                  name="emailId"
                   defaultValue={row.emailId}
-                  onChange={(e) => setEmailId(e.target.value)}
-                  // disabled={!isDisabled || !modify}
+                  onChange={(e) => handleInputChange(e, index)}
+                // disabled={!isDisabled || !modify}
                 />
               </td>
               <td>
                 <input
                   type="number"
                   required="required"
+                  name="faxNumber"
                   // value={row.faxNumber}
-                  onChange={(e) => setFaxNumber(e.target.value)}
+                  onChange={(e) => handleInputChange(e, index)}
                   defaultValue={row.faxNumber}
-                  // disabled={!isDisabled || !row.modify}
+                // disabled={!isDisabled || !row.modify}
                 />
               </td>
               <td>
                 <input
                   type="text"
                   //required="required"
+                  name="referenceNumber"
                   defaultValue={row.referenceNumber}
-                  onChange={(e) => setReferenceNumber(e.target.value)}
-                  // disabled={!isDisabled || !modify}
+                  onChange={(e) => handleInputChange(e, index)}
+                // disabled={!isDisabled || !modify}
                 />
               </td>
               <td>
-                <button type="button" className="checkbox-button">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    disabled
-                    onChange={(e) => handleCheckboxChange(e, index)}
-                  />
-                </button>
+
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  onChange={(e) => handleCheckboxChange(e, index)}
+                />
+
               </td>
               <td>
-                <button type="button" className="checkbox-button">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    disabled
-                    onChange={(e) => handleCheckboxChange(e, index)}
-                  />
-                </button>
+
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  disabled
+                  onChange={(e) => handleCheckboxChange(e, index)}
+                />
+
               </td>
               <td>
-                <button type="button" className="checkbox-button">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    name="modify"
-                    value={row.modify}
-                    onChange={(e) => handleCheckboxChange(e, index, row.id)}
-                  />
-                </button>
+
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  name="modify"
+                  value={row.modify}
+                  onChange={(e) => handleCheckboxChange(e, index, row.id)}
+                />
+
               </td>
               <td>
-                <button type="button" className="checkbox-button">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    defaultValue={row.verify}
-                    onChange={(e) => this.handleCheckboxChange(e, index)}
-                  />
-                </button>
+
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  defaultValue={row.verify}
+                  disabled
+                  onChange={(e) => this.handleCheckboxChange(e, index)}
+                />
+
               </td>
             </tr>
           ))}
@@ -198,7 +192,7 @@ function Table() {
       <button type="button" onClick={dataToUpdate}>
         Update
       </button>
-      <button onClick={changePath}>Cancel</button>
+      <button type="button"><Link to="/">Back</Link></button>
     </form>
   );
 }

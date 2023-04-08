@@ -96,8 +96,8 @@ function Table() {
   };
 
   const changePath = () => {
-    <Link to="/"></Link>;
-  };
+    <Link to="/"></Link>
+  }
 
   const submitData = async (event) => {
     event.preventDefault();
@@ -226,7 +226,7 @@ function Table() {
         Submit
       </button>
       <button type="button" className="go-button-2" onClick={changePath}>
-        <Link to="/">Cancel</Link>
+      <Link to="/">Cancel</Link>
       </button>
     </form>
   );

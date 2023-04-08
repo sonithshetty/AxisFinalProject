@@ -1,45 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 function Table() {
   const [data, setData] = useState([]);
-  // const [id, setId] = useState(0);
-  const [name, setName] = useState("");
-  const [emailId, setEmailId] = useState("");
-  const [faxNumber, setFaxNumber] = useState(0);
-  const [referenceNumber, setReferenceNumber] = useState("");
-  // const [verify, setVerify] = useState(false);
+  
   useEffect(() => {
     const accountNo = Cookies.get("js-accountId");
     const url = "http://localhost:8094/verified/" + accountNo;
     const options = {
       method: "GET",
     };
-    const arr = [];
     fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
         const updatedData = data.map((eachData) => ({
-          // id: eachData.id,
+          id: eachData.id,
           name: eachData.name,
           emailId: eachData.emailId,
           faxNumber: eachData.faxNumber,
           referenceNumber: eachData.referenceNumber,
           accountNo: eachData.accountNo,
-          // digitalSignature: eachData.digitalSignature,
-          // delete: eachData.delete,
-          // modify: eachData.modify,
-          // verify: eachData.verify,
+          verify: eachData.verify,
         }));
         setData(updatedData);
       });
   }, []);
-  const [isDigitalSignatureChecked, setIsDigitalSignatureChecked] =
-    useState(false);
-  const [isDeleteChecked, setIsDeleteChecked] = useState(false);
-  const [isModifyChecked, setIsModifyChecked] = useState(false);
-  const [isVerifyChecked, setIsVerifyChecked] = useState(false);
 
   const handleInputChange = (event, index) => {
     const { name, value } = event.target;
@@ -61,64 +47,7 @@ function Table() {
     const newData = [...data];
     newData[index][name] = checked;
     setData(newData);
-    if (name === "digitalSignature") {
-      setIsDigitalSignatureChecked(checked);
-    }
-    if (name === "delete") {
-      //newData[index].modify = false;
-      //newData[index].verify = false;
-      setIsModifyChecked(checked);
-      setIsVerifyChecked(checked);
-    } else if (name === "modify") {
-      //newData[index].delete = false;
-      //newData[index].verify = false;
-      setIsDeleteChecked(checked);
-      setIsVerifyChecked(checked);
-    } else if (name === "verify") {
-      //newData[index].delete = false;
-      //newData[index].modify = false;
-      setIsModifyChecked(checked);
-      setIsDeleteChecked(checked);
-    } else {
-    }
   };
-
-  const changePath = () => {
-    <Link to="/"></Link>;
-  };
-
-  // const submitData = async (event) => {
-  //   event.preventDefault();
-  //   const accId = Cookies.get("js-accountId");
-  //   //const { name, email, faxNumber, refNumber } = this.state
-  //   const modifiedData = data
-  //     .filter(
-  //       (row) =>
-  //         row.name !== "" ||
-  //         row.email !== "" ||
-  //         row.faxNumber !== 0 ||
-  //         row.refNumber !== ""
-  //     )
-  //     .map((row) => ({
-  //       name: row.name,
-  //       emailId: row.email,
-  //       faxNumber: row.faxNumber,
-  //       referenceNumber: row.refNumber,
-  //       accountNo: accId,
-  //     }));
-  //   const options = {
-  //     method: "POST",
-  //     body: JSON.stringify(modifiedData),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //   };
-  //   const response = await fetch("http://localhost:8094/indemn", options);
-  //   const dataDetails = await response.json();
-  //   alert("Data Added Sucssesfully");
-  //   console.log(dataDetails);
-  // };
 
   return (
     <form>
@@ -142,6 +71,7 @@ function Table() {
                 <input
                   type="text"
                   name="name"
+                  disabled
                   value={eachData.name}
                   onChange={(event) => handleInputChange(event, eachData.id)}
                 />
@@ -150,6 +80,7 @@ function Table() {
                 <input
                   type="email"
                   name="emailId"
+                  disabled
                   value={eachData.emailId}
                   onChange={(event) => handleInputChange(event, eachData.id)}
                 />
@@ -158,6 +89,7 @@ function Table() {
                 <input
                   type="number"
                   name="faxNumber"
+                  disabled
                   value={eachData.faxNumber}
                   onChange={(event) => handleInputChange(event, eachData.id)}
                 />
@@ -166,6 +98,7 @@ function Table() {
                 <input
                   type="text"
                   name="referenceNumber"
+                  disabled
                   value={eachData.referenceNumber}
                   onChange={(event) => handleInputChange(event, eachData.id)}
                 />
@@ -183,7 +116,7 @@ function Table() {
                 <input
                   type="checkbox"
                   name="delete"
-                  disabled={!isDeleteChecked}
+                  disabled
                   checked={eachData.delete}
                   onChange={(event) => handleCheckboxChange(event, eachData.id)}
                 />
@@ -192,7 +125,7 @@ function Table() {
                 <input
                   type="checkbox"
                   name="modify"
-                  disabled={!isModifyChecked}
+                  disabled
                   checked={eachData.modify}
                   onChange={(event) => handleCheckboxChange(event, eachData.id)}
                 />
@@ -201,7 +134,7 @@ function Table() {
                 <input
                   type="checkbox"
                   name="verify"
-                  disabled={!isVerifyChecked}
+                  disabled
                   checked={eachData.verify}
                   onChange={(event) => handleCheckboxChange(event, eachData.id)}
                 />
@@ -210,14 +143,11 @@ function Table() {
           ))}
         </tbody>
       </table>
-      {/* <button type="submit" className="submit-button">
-        Submit
-      </button> */}
-      <button type="button" className="go-button-2" onClick={changePath}>
+      <button type="button" className="go-button-2">
         <Link to="/">Back</Link>
       </button>
     </form>
   );
 }
 
-export default Table;
+export default Table;
