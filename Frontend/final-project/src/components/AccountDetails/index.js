@@ -5,6 +5,7 @@ import ModifyData from "../ModifyData";
 import InquireData from "../InquireData";
 import "./index.css";
 import Cookies from "js-cookie";
+import { Redirect } from "react-router-dom";
 
 class AccountDetails extends Component {
   state = {
@@ -139,7 +140,12 @@ class AccountDetails extends Component {
     console.log(data2);
   };
 
-  changePath = () => {
+  changeVerifyPath = () => {
+    const { history } = this.props;
+    history.replace("/checker");
+  };
+
+  changeCancelPath = () => {
     const { history } = this.props;
     history.replace("/");
   };
@@ -173,6 +179,17 @@ class AccountDetails extends Component {
     newData[index][name] = checked;
     this.setState({ faxList: newData });
 
+    if (name === "modify") {
+      const rowToSelect = faxList.find(
+        (eachData) => eachData.id === id && checked
+      );
+      if (rowToSelect) {
+        this.setState({
+          toUpdateList: [...this.state.toUpdateList, rowToSelect],
+        });
+      }
+      console.log(toUpdateList);
+    }
     if (name === "cancel") {
       const updatedCancelListIds = faxList
         .filter((eachData) => eachData.id === id && checked)
@@ -344,7 +361,7 @@ class AccountDetails extends Component {
             </tbody>
           </table>
           <button onClick={this.dataToVerify}>Verify</button>
-          <button onClick={this.changePath}>Cancel</button>
+          <button onClick={this.changeVerifyPath}>Cancel</button>
         </form>
       );
     } else if (api === "Cancel") {
@@ -417,21 +434,21 @@ class AccountDetails extends Component {
                     <input
                       type="checkbox"
                       className="checkbox"
+                      disabled
                       onChange={(e) =>
                         this.handleCheckboxChange(e, index, row.id)
                       }
-                      disabled
                     />
                   </td>
                   <td>
                     <input
                       type="checkbox"
                       className="checkbox"
+                      disabled
                       value={row.verify}
                       onChange={(e) =>
                         this.handleCheckboxChange(e, index, row.id)
                       }
-                      disabled
                     />
                   </td>
                 </tr>
@@ -439,7 +456,7 @@ class AccountDetails extends Component {
             </tbody>
           </table>
           <button onClick={this.dataToCancel}>Delete</button>
-          <button onClick={this.changePath}>Cancel</button>
+          <button onClick={this.changeCancelPath}>Cancel</button>
         </form>
       );
     } else if (api === "Inquire") {
@@ -453,6 +470,10 @@ class AccountDetails extends Component {
     const api = Cookies.get("js-method");
     const accountNo = Cookies.get("js-accountId");
     const custId = Cookies.get("js-custId");
+    // const jwtToken = Cookies.get("jwt_token")
+    // if(jwtToken === undefined){
+    //   return <Redirect to="/employeelogin"/>
+    // }
     console.log(faxList);
     return (
       <div className="email-container">
@@ -469,7 +490,7 @@ class AccountDetails extends Component {
             <p>{accountNo}</p>
           </div>
         </div>
-        <div className="pagination-buttons">
+        {/* <div className="pagination-buttons">
           <button
             type="button"
             className="backward-button"
@@ -485,7 +506,7 @@ class AccountDetails extends Component {
           >
             <IoIosArrowForward className="forward" />
           </button>
-        </div>
+        </div> */}
         <div>{this.renderData()}</div>
       </div>
     );

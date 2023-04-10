@@ -2,6 +2,7 @@ import { Component } from "react";
 import Cookies from "js-cookie";
 import { FcSearch } from "react-icons/fc";
 import "./index.css";
+import { Redirect } from "react-router-dom";
 
 class FaxDetails extends Component {
   state = {
@@ -25,7 +26,12 @@ class FaxDetails extends Component {
   cancelTheProcess = () => {
     this.setState({ accountId: "", customerId: "" });
     const { history } = this.props;
-    history.replace("/");
+    const jwtToken = Cookies.get("jwt_token");
+    if (jwtToken !== undefined) {
+      history.replace("/");
+    } else {
+      history.replace("/checker");
+    }
   };
 
   changeCustId = (event) => {
@@ -38,10 +44,10 @@ class FaxDetails extends Component {
     const { accountId, customerId } = this.state;
     Cookies.set("js-accountId", accountId, { expires: 7 });
     Cookies.set("js-custId", customerId, { expires: 7 });
-   
-    if(accountId === "" && customerId === ""){
-      alert("Account Number and Customer Id Required")
-    }else{
+
+    if (accountId === "" && customerId === "") {
+      alert("Account Number and Customer Id Required");
+    } else {
       history.replace("/total-faxes");
     }
   };
@@ -51,8 +57,12 @@ class FaxDetails extends Component {
   };
 
   render() {
-    const { accountId, customerId} = this.state;
+    const { accountId, customerId } = this.state;
     const api = Cookies.get("js-method");
+    // const jwtToken = Cookies.get("jwt_token")
+    // if(jwtToken === undefined){
+    //   return <Redirect to="/employeelogin"/>
+    // }
     return (
       <div className="email-container">
         <h1 className="email-heading">Fax/Email Indemnity</h1>
@@ -103,7 +113,7 @@ class FaxDetails extends Component {
           className="go-button-2"
           onClick={this.cancelTheProcess}
         >
-        Cancel
+          Cancel
         </button>
       </div>
     );

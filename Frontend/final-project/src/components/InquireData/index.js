@@ -144,7 +144,7 @@ function Table() {
         </tbody>
       </table>
       <button type="button" className="go-button-2">
-        <Link to="/">Back</Link>
+        <Link to="/checker">Back</Link>
       </button>
     </form>
   );

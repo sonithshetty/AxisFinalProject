@@ -1,11 +1,15 @@
 import { Component } from "react";
 import Cookies from "js-cookie";
 import "./index.css";
+import { Redirect } from "react-router-dom";
+import LogoutComponent from "../LogoutComponent";
 
 class SelectApiMethod extends Component {
   state = {
     api: "--Select--",
   };
+
+
 
   changePath = () => {
     const { api } = this.state;
@@ -28,6 +32,10 @@ class SelectApiMethod extends Component {
 
   render() {
     const { api } = this.state;
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken === undefined) {
+      return <Redirect to="/employeelogin" />
+    }
     return (
       <div className="email-container">
         <h1 className="email-heading">Fax/Email Indemnity</h1>
@@ -43,9 +51,9 @@ class SelectApiMethod extends Component {
             <option>--Select--</option>
             <option value="Add">Add</option>
             <option value="Modify">Modify</option>
-            <option value="Verify">Verify</option>
+            {/* <option value="Verify">Verify</option> */}
             <option value="Cancel">Cancel</option>
-            <option value="Inquire">Inquire</option>
+            {/* <option value="Inquire">Inquire</option> */}
           </select>
         </div>
         <button type="button" className="go-button" onClick={this.changePath}>
@@ -58,6 +66,7 @@ class SelectApiMethod extends Component {
         >
           Cancel
         </button>
+        <LogoutComponent/>
       </div>
     );
   }
