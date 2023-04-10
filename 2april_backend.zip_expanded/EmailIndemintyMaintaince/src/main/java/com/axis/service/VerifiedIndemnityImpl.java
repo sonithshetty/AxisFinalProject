@@ -85,5 +85,26 @@ public class VerifiedIndemnityImpl implements VerifiedIndemnityService{
         return verifiedDetailsDTOList; 
 	}
 
+	@Override
+	public List<VerifiedIndemnity> updateDetailsByIdList(List<VerifiedIndemnity> verifiedDetails) {
+		// TODO Auto-generated method stub
+		List<VerifiedIndemnity> updatedVerifiedList = new ArrayList<VerifiedIndemnity>( );
+		
+		for (VerifiedIndemnity verifiedDetail: verifiedDetails) 
+		{
+			VerifiedIndemnity toUpdateList = new VerifiedIndemnity();
+				 toUpdateList.setId(verifiedDetail.getId());
+				 toUpdateList.setAccountNo(verifiedDetail.getAccountNo());
+				 toUpdateList.setName(verifiedDetail.getName());
+				 toUpdateList.setEmailId(verifiedDetail.getEmailId());
+				 toUpdateList.setFaxNumber(verifiedDetail.getFaxNumber());
+				 toUpdateList.setReferenceNumber(verifiedDetail.getReferenceNumber());
+				 updatedVerifiedList.add(toUpdateList);
+		}
+		        
+        List<VerifiedIndemnity> verifiedDetailLists = verifiedRepository.saveAll(verifiedDetails);
+        return verifiedDetailLists;
+	}
+
 
 }

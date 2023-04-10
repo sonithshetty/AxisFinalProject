@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.axis.dto.VerifiedIndemnityDTO;
 import com.axis.model.IndemnityDetails;
+import com.axis.model.VerifiedIndemnity;
 import com.axis.repository.IndemnityDetailsRepository;
 import com.axis.repository.VerifiedIndemnityRepository;
 import com.axis.service.IndemnityDetailsService;
@@ -42,12 +44,16 @@ public class VerifiedIndemnController {
         return ResponseEntity.ok(verifiedListDTO);
 	}
 	
-	
-	
 	@GetMapping("/verified/{accountNo}")
 	public ResponseEntity<List<VerifiedIndemnityDTO>> getDetailsByAccountNo(@PathVariable String accountNo) {
         List<VerifiedIndemnityDTO> verifiedDetailsDTO = verifiedService.getDetailsByAccountNo(accountNo);
         return ResponseEntity.ok(verifiedDetailsDTO);
+    }
+	
+	@PutMapping("/verified/update")
+	public ResponseEntity<List<VerifiedIndemnity>> updateDetailsByIdList(@RequestBody List<VerifiedIndemnity> verifiedDetails) {
+		List<VerifiedIndemnity> updatedVerifiedDetails = verifiedService.updateDetailsByIdList(verifiedDetails);
+        return ResponseEntity.ok(updatedVerifiedDetails);
     }
 	
 	@DeleteMapping("/verified/delete")
